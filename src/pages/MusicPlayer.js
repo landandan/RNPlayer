@@ -16,6 +16,7 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import Disc from '../component/player/Disc'
+import VolumeModule from '../component/player/VolumeModule'
 import PlayerControlFooter from '../component/player/playerControl'
 
 class MusicPlayer extends Component {
@@ -26,8 +27,12 @@ class MusicPlayer extends Component {
   props: {
     playerVisible: boolean,
     onCancel: () => void,
-    volumeChange: (v) => void,
     volume: number,
+    volumeChange: (v) => void,
+    muted: boolean,
+    mutedChange: () => void,
+    paused: boolean,
+    pausedChange: () => void,
   }
 
   render() {
@@ -60,12 +65,11 @@ class MusicPlayer extends Component {
           </Right>
         </Header>
         <Content>
-          <Slider
-            style={{ marginLeft: 10, marginRight: 10}}
-            value={this.props.volume}
-            step={0.1}
-            minimumTrackTintColor='#FFDB42'
-            onValueChange={(value) => this.props.volumeChange(value)}
+          <VolumeModule
+            muted={this.props.muted}
+            mutedChange={this.props.mutedChange}
+            volume={this.props.volume}
+            volumeChange={this.props.mutedChange}
           />
           <Disc/>
         </Content>

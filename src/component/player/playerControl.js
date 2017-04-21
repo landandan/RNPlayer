@@ -12,8 +12,8 @@ import {
 import MusicList from '../MusicList'
 
 class PlayerControl extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       visible: false,
     }
@@ -23,11 +23,15 @@ class PlayerControl extends Component {
     visible: boolean,
   }
 
+  props: {
+    paused: boolean,
+    pausedChange: () => void,
+  }
+
   render() {
     return (
       <View
         style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        {/*volume-off:静音,volume-up：有声音*/}
         <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
           {/*repeat,shuffle,sync*/}
           <Icon name='repeat'/>
@@ -40,7 +44,7 @@ class PlayerControl extends Component {
           onPress={this.props.pausedChange}
         >
           {/*pause:暂停,play：播放*/}
-          <Icon name={this.props.paused? 'pause': 'play'}/>
+          <Icon name={this.props.paused? 'play': 'pause'}/>
         </TouchableOpacity>
         <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
           <Icon name='skip-forward'/>

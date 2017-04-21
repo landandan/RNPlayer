@@ -26,6 +26,7 @@ class HomeFooter extends Component {
       playerVisible: false,
       volume: 0.8,
       paused: true,
+      muted: false,
     }
   }
   state: {
@@ -33,6 +34,7 @@ class HomeFooter extends Component {
     playerVisible: boolean,
     volume: number,
     paused: boolean,
+    muted: boolean,
   }
 
   volumeChange(value: number){
@@ -44,6 +46,12 @@ class HomeFooter extends Component {
   pausedChange(){
     this.setState({
       paused: !this.state.paused,
+    })
+  }
+
+  mutedChange(){
+    this.setState({
+      muted: !this.state.muted,
     })
   }
 
@@ -87,6 +95,7 @@ class HomeFooter extends Component {
               <Player
                 volume={this.state.volume}
                 paused={this.state.paused}
+                muted={this.state.muted}
               />
               <MusicPlayer
                 playerVisible={this.state.playerVisible}
@@ -101,6 +110,8 @@ class HomeFooter extends Component {
                 }
                 paused={this.state.paused}
                 pausedChange={() => this.pausedChange()}
+                muted={this.state.muted}
+                mutedChange={() => this.mutedChange()}
               />
             </ListItem>
           </List>
