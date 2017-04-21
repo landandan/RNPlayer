@@ -70,7 +70,10 @@ class MusicPlayer extends Component {
           <Disc/>
         </Content>
         <Footer>
-          <PlayerControlFooter/>
+          <PlayerControlFooter
+            paused={this.props.paused}
+            pausedChange={this.props.pausedChange}
+          />
         </Footer>
       </Container>
       </Modal>

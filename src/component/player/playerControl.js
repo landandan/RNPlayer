@@ -35,9 +35,12 @@ class PlayerControl extends Component {
         <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
           <Icon name='skip-backward'/>
         </TouchableOpacity>
-        <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
+        <TouchableOpacity
+          transparent style={{paddingHorizontal: 10}}
+          onPress={this.props.pausedChange}
+        >
           {/*pause:暂停,play：播放*/}
-          <Icon name='pause'/>
+          <Icon name={this.props.paused? 'pause': 'play'}/>
         </TouchableOpacity>
         <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
           <Icon name='skip-forward'/>

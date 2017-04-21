@@ -19,7 +19,7 @@ class Player extends Component {
         //ref='video'
         volume={this.props.volume}
         //muted={this.props.muted}
-        paused={false}
+        paused={this.props.paused}
         //onProgress={(e) => this.onProgress(e)}
         //onLoad={(e) => this.onLoad(e)}
       />
