@@ -29,6 +29,7 @@ class SongList extends Component {
                       <Body>
                       <Text style={{fontSize: 13}}>{item.name}</Text>
                       <Text note style={{fontSize: 11}}>{item.copywriter}</Text>
+                      <Text note style={{fontSize: 11}}>当前听众：{item.playcount}</Text>
                       </Body>
                     </ListItem>
                   }/>
