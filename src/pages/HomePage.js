@@ -100,7 +100,7 @@ class HomePage extends Component {
 }
 
 function mapProps(store) {
-  //console.log('store:', store)
+  console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
   const { banners = [], hotspot = [] } = NETSHomeData || {}
   return {

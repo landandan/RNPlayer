@@ -13,7 +13,7 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { setSearchResultList } from "../actions/playerAction";
+import { setSearchResultList, playFindMusic } from "../actions/playerAction";
 
 class SearchPage extends Component {
   constructor(){
@@ -60,12 +60,21 @@ class SearchPage extends Component {
           <List dataArray={this.props.searchResultList || []}
                 renderRow={
                   (item) =>
-                    <ListItem>
+                    <ListItem
+                      onPress={() => {
+                        this.props.playFindMusic({
+                          songName: (item.f.split('|')[3]&& item.f.split('|')[3].replace(/amp\;/g, '').replace(/\;/g, '/') || '佚名')+' - '+item.fsong,
+                          singer: '',
+                          fileSrc: item.f.split('|')[0],
+                          imgSrc: item.f.split('|')[4]&&'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg',
+                        })
+                      }}
+                    >
                       <Thumbnail square size={80}
                        source={{uri:item.f.split('|')[4]&&'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg'}} />
                       <Body>
-                      <Text>{item.fsong}</Text>
-                      <Text note>{item.fsinger}</Text>
+                        <Text>{item.fsong}</Text>
+                        <Text note>{item.fsinger}</Text>
                       </Body>
                     </ListItem>
                   }>>
@@ -88,6 +97,7 @@ function mapProps(store) {
 function mapAction(dispatch) {
   return {
     setSearchResultList: async (r) => dispatch(await setSearchResultList(r)),
+    playFindMusic: (r) => dispatch(playFindMusic(r)),
   }
 }
 

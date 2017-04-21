@@ -33,8 +33,22 @@ function searchResultList(state = {}, action = {}) {
   return state
 }
 
+function status(state = {
+  paused: true,
+  muted: false,
+}, action = {}) {
+  if (action.type === 'setPlayerStatus') {
+    return {
+      ...state,
+      ...action.status,
+    }
+  }
+  return state
+}
+
 export default combineReducers({
   musicList,
   currentMusicInfo,
   searchResultList,
+  status,
 })

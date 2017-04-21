@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import Player from './Player'
 import MusicList from './MusicList'
 import MusicPlayer from '../pages/MusicPlayer'
+import { setPlayerStatus } from "../actions/playerAction";
 
 class HomeFooter extends Component {
   constructor(props){
@@ -25,16 +26,12 @@ class HomeFooter extends Component {
       visible: false,
       playerVisible: false,
       volume: 0.8,
-      paused: true,
-      muted: false,
     }
   }
   state: {
     visible: boolean,
     playerVisible: boolean,
     volume: number,
-    paused: boolean,
-    muted: boolean,
   }
 
   volumeChange(value: number){
@@ -44,33 +41,36 @@ class HomeFooter extends Component {
   }
 
   pausedChange(){
-    this.setState({
-      paused: !this.state.paused,
+    const { status } = this.props.player
+    this.props.setPlayerStatus({
+      paused: !status.paused,
     })
   }
 
   mutedChange(){
-    this.setState({
-      muted: !this.state.muted,
+    const { status } = this.props.player
+    this.props.setPlayerStatus({
+      muted: !status.muted,
     })
   }
 
   render() {
-    const { currentMusicInfo } = this.props.player
+    const { currentMusicInfo, status } = this.props.player
     return (
       <Container>
         <Content style={{backgroundColor: '#B72712'}}>
           <List>
             <ListItem style={{height: 55}}
-                      onPress={() => { this.setState({
+                      onPress={() => {
+                        this.setState({
                         playerVisible: true,
                       }) }}>
               <Thumbnail square
                          style={{width: 48, height: 48,}}
                          source={{uri: currentMusicInfo.pic_small}}/>
               <Body>
-              <Text>{currentMusicInfo.title}</Text>
-              <Text note>Its time to build a difference . .</Text>
+                <Text>{currentMusicInfo.title}</Text>
+                <Text note>Its time to build a difference . .</Text>
               </Body>
               <TouchableOpacity>
                 <Thumbnail
@@ -93,9 +93,10 @@ class HomeFooter extends Component {
                     })
               }}/>
               <Player
+                fileSrc={currentMusicInfo.fileSrc || currentMusicInfo.file_link}
                 volume={this.state.volume}
-                paused={this.state.paused}
-                muted={this.state.muted}
+                paused={status.paused}
+                muted={status.muted}
               />
               <MusicPlayer
                 playerVisible={this.state.playerVisible}
@@ -108,9 +109,9 @@ class HomeFooter extends Component {
                 volumeChange={
                   (value) => this.volumeChange(value)
                 }
-                paused={this.state.paused}
+                paused={status.paused}
                 pausedChange={() => this.pausedChange()}
-                muted={this.state.muted}
+                muted={status.muted}
                 mutedChange={() => this.mutedChange()}
               />
             </ListItem>
@@ -131,6 +132,7 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
+    setPlayerStatus: (v) => dispatch(setPlayerStatus(v)),
   }
 }
 

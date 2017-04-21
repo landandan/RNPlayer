@@ -10,8 +10,9 @@ import reducers from './reducers'
 import HomePage from "./pages/HomePage"
 import SearchPage from "./pages/SearchPage"
 import MusicPlayer from './pages/MusicPlayer'
+import { multiDispatcher } from "./utils/middleware"
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(multiDispatcher, thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const scenes = Actions.create(

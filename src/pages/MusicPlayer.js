@@ -69,7 +69,7 @@ class MusicPlayer extends Component {
             muted={this.props.muted}
             mutedChange={this.props.mutedChange}
             volume={this.props.volume}
-            volumeChange={this.props.mutedChange}
+            volumeChange={this.props.volumeChange}
           />
           <Disc/>
         </Content>

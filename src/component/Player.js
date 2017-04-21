@@ -12,10 +12,18 @@ class Player extends Component {
     super(props)
   }
 
+  props: {
+    fileSrc: string,
+    muted: boolean,
+    volume: number,
+    paused: boolean,
+  }
+
   render() {
+    //console.log('this.props.fileSrc:', this.props.fileSrc)
     return(
       <Video
-        source={{uri: 'http://m2.music.126.net/qv3RI4K7ABKJ0TyAdb3taw==/3250156397064860.mp3'}}
+        source={{uri: (this.props.fileSrc || 'http://m2.music.126.net/7WiRhPdirEJ2axW9Xm6uJQ==/1415071481819545.mp3')}}
         //ref='video'
         muted={this.props.muted}
         volume={this.props.volume}
