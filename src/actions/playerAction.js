@@ -24,3 +24,27 @@ export async function setSearchResultList(keywords: string) {
     searchResultList,
   }
 }
+
+export function setPlayerStatus(status: Object) {
+  return {
+    type: 'setPlayerStatus',
+    status,
+  }
+}
+
+export function playFindMusic(musicInfo: {
+  songName: string,
+  singer: string,
+  fileSrc: string,
+  imgSrc: string,
+}) {
+  const newCurrentMusicInfo = {
+    ...musicInfo,
+    fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.fileSrc}.m4a?fromtag=46`,
+  }
+  return [
+    setCurrentMusicInfo(newCurrentMusicInfo),
+    setPlayerStatus({
+      paused: false,
+    })]
+}
