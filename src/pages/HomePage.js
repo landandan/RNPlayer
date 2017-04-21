@@ -77,9 +77,6 @@ class HomePage extends Component {
           </Header>
           <Tabs>
             <Tab heading={ <View><Text>推荐</Text></View>}>
-              {
-                console.log('banners:', this.props.banners)
-              }
               <View style={{height: width * 200 / 540, width}}>
                 <HomeSwiper banners={this.props.banners}/>
               </View>
@@ -102,7 +99,7 @@ class HomePage extends Component {
 }
 
 function mapProps(store) {
-  console.log('store:', store)
+  //console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
   const { banners = [], hotspot = [] } = NETSHomeData || {}
   return {
