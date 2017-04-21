@@ -4,11 +4,11 @@
 import { combineReducers } from 'redux'
 
 function musicList(state = {}, action = {}) {
-  if (action.type === 'setMusicList') {
-    return {
+  if (action.type === 'setPlayMusicList') {
+    return [
       ...state,
-      ...action.musicList,
-    }
+      ...action.playMusicList,
+    ]
   }
   return state
 }
