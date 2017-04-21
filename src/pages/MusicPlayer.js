@@ -4,6 +4,8 @@
 import React, { Component } from 'react'
 import {
   View,
+  Modal,
+  Slider,
 } from 'react-native'
 import {
   Container, Header,
@@ -13,22 +15,32 @@ import {
   Item, Input, Tabs, Tab, Text,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
 import Disc from '../component/player/Disc'
 import PlayerControlFooter from '../component/player/playerControl'
 
 class MusicPlayer extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  props: {
+    playerVisible: boolean,
+    onCancel: () => void,
+    volumeChange: (v) => void,
+    volume: number,
+  }
+
   render() {
     const { currentMusicInfo } = this.props.player
     return(
-      <Container>
+      <Modal transparent visible={this.props.playerVisible}
+             animationType="fade" onRequestClose={this.props.onCancel}>
+      <Container style={{backgroundColor: 'white'}}>
         <Header searchBar hasTabs>
           <Left>
             <Button
               transparent
-              onPress={() =>{
-                      Actions.pop()
-                    } }
+              onPress={this.props.onCancel}
             >
               <Icon name='arrow-round-back'/>
             </Button>
@@ -48,12 +60,20 @@ class MusicPlayer extends Component {
           </Right>
         </Header>
         <Content>
+          <Slider
+            style={{ marginLeft: 10, marginRight: 10}}
+            value={this.props.volume}
+            step={0.1}
+            minimumTrackTintColor='#FFDB42'
+            onValueChange={(value) => this.props.volumeChange(value)}
+          />
           <Disc/>
         </Content>
         <Footer>
           <PlayerControlFooter/>
         </Footer>
       </Container>
+      </Modal>
     )
   }
 }

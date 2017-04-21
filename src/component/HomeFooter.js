@@ -14,26 +14,35 @@ import {
   List, ListItem, Icon, Button,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
+import Player from './Player'
 import MusicList from './MusicList'
+import MusicPlayer from '../pages/MusicPlayer'
 
 class HomeFooter extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       visible: false,
+      playerVisible: false,
+      volume: 1.0,
     }
   }
   state: {
     visible: boolean,
+    playerVisible: boolean,
+    volume: number,
   }
+
   render() {
     const { currentMusicInfo } = this.props.player
     return (
       <Container>
         <Content style={{backgroundColor: '#B72712'}}>
           <List>
-            <ListItem style={{height: 55}} onPress={() => { Actions.musicPlayer() }}>
+            <ListItem style={{height: 55}}
+                      onPress={() => { this.setState({
+                        playerVisible: true,
+                      }) }}>
               <Thumbnail square
                          style={{width: 48, height: 48,}}
                          source={{uri: currentMusicInfo.pic_small}}/>
@@ -61,6 +70,22 @@ class HomeFooter extends Component {
                       visible: false,
                     })
               }}/>
+              <Player
+                volume={this.state.volume}
+              />
+              <MusicPlayer
+                playerVisible={this.state.playerVisible}
+                onCancel={() => {
+                  this.setState({
+                      playerVisible: false,
+                    })
+                  }}
+                volume={this.state.volume}
+                volumeChange={(value) => this.setState({
+                    volume: value,
+                  })
+                }
+              />
             </ListItem>
           </List>
         </Content>

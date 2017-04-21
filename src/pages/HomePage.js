@@ -29,6 +29,7 @@ import { setNETSHomeData } from "../actions/homeAction"
 const { width } = Dimensions.get('window')
 
 class HomePage extends Component {
+
   componentWillMount() {
     this.init()
   }
