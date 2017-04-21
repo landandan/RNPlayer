@@ -23,6 +23,7 @@ import { getMusicList } from "../utils/API";
 import { setMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import HomeFooter from '../component/HomeFooter'
 import HomeSwiper from '../component/HomeSwiper'
+import SongList from '../component/SongList'
 import { setNETSHomeData } from "../actions/homeAction"
 
 const { width } = Dimensions.get('window')
@@ -82,7 +83,7 @@ class HomePage extends Component {
               <View style={{height: width * 200 / 540, width}}>
                 <HomeSwiper banners={this.props.banners}/>
               </View>
-              <Text>推荐</Text>
+              <SongList songList={this.props.hotspot}/>
             </Tab>
             <Tab heading={ <View><Text>歌单</Text></View>}>
               <Text>歌单</Text>
@@ -91,10 +92,6 @@ class HomePage extends Component {
               <Text>排行榜</Text>
             </Tab>
           </Tabs>
-          <Content>
-
-          </Content>
-
           <Footer>
             <HomeFooter/>
           </Footer>
@@ -107,9 +104,10 @@ class HomePage extends Component {
 function mapProps(store) {
   console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
-  const { banners } = NETSHomeData || {}
+  const { banners = [], hotspot = [] } = NETSHomeData || {}
   return {
     banners,
+    hotspot,
   }
 }
 

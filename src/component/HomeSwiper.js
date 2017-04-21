@@ -45,6 +45,7 @@ class HomeSwiper extends Component {
         paginationStyle={{
           bottom: 5,
         }}
+        removeClippedSubviews
         dot={<View
          style={{
            backgroundColor:'rgba(0,0,0,.2)',
