@@ -5,9 +5,9 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  Dimensions,
 } from 'react-native';
-import { compose } from 'redux'
 import { connect } from 'react-redux'
 import {
   Container, Header,
@@ -24,6 +24,8 @@ import { setMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import HomeFooter from '../component/HomeFooter'
 import HomeSwiper from '../component/HomeSwiper'
 import { setNETSHomeData } from "../actions/homeAction"
+
+const { width } = Dimensions.get('window')
 
 class HomePage extends Component {
   componentWillMount() {
@@ -77,7 +79,9 @@ class HomePage extends Component {
               {
                 console.log('banners:', this.props.banners)
               }
-              <HomeSwiper banners={this.props.banners}/>
+              <View style={{height: width * 200 / 540, width}}>
+                <HomeSwiper banners={this.props.banners}/>
+              </View>
               <Text>推荐</Text>
             </Tab>
             <Tab heading={ <View><Text>歌单</Text></View>}>
