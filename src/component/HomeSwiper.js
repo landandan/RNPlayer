@@ -40,7 +40,7 @@ class HomeSwiper extends Component {
       dataFlag && <Swiper
         showsButtons={false}
         autoplay
-        height={150}
+        height={540 * 200 / width}
         autoplayTimeout={5}
         >
         {
