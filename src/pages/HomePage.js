@@ -7,6 +7,7 @@ import {
   Text,
   View
 } from 'react-native';
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import {
   Container, Header,
@@ -21,14 +22,21 @@ import Sidebar from '../component/Sidebar'
 import { getMusicList } from "../utils/API";
 import { setMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import HomeFooter from '../component/HomeFooter'
+import HomeSwiper from '../component/HomeSwiper'
+import { setNETSHomeData } from "../actions/homeAction"
 
-class MainPage extends Component {
-  async componentWillMount(){
+class HomePage extends Component {
+  componentWillMount() {
+    this.init()
+  }
+
+  async init() {
     const result = await getMusicList()
     this.props.setMusicList(result)
-    if(result && result.song_list && result.song_list.length > 0){
+    if ( result && result.song_list && result.song_list.length > 0 ) {
       this.props.setCurrentMusicInfo(result.song_list[0])
     }
+    this.props.setNETSHomeData()
   }
 
   closeDrawer() {
@@ -66,6 +74,10 @@ class MainPage extends Component {
           </Header>
           <Tabs>
             <Tab heading={ <View><Text>推荐</Text></View>}>
+              {
+                console.log('banners:', this.props.banners)
+              }
+              <HomeSwiper banners={this.props.banners}/>
               <Text>推荐</Text>
             </Tab>
             <Tab heading={ <View><Text>歌单</Text></View>}>
@@ -89,14 +101,20 @@ class MainPage extends Component {
 }
 
 function mapProps(store) {
-  return {}
+  console.log('store:', store)
+  const { NETSHomeData } = store.homePage || {}
+  const { banners } = NETSHomeData || {}
+  return {
+    banners,
+  }
 }
 
 function mapAction(dispatch) {
   return {
     setMusicList: (r) => dispatch(setMusicList(r)),
-    setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r))
+    setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
+    setNETSHomeData: async()=>dispatch(await setNETSHomeData()),
   }
 }
 
-export default connect(mapProps, mapAction)(MainPage)
+export default connect(mapProps, mapAction)(HomePage)
