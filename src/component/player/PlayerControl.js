@@ -26,6 +26,9 @@ class PlayerControl extends Component {
   props: {
     paused: boolean,
     pausedChange: () => void,
+    musicData: Array<Object>,
+    currentMusicInfo: Object,
+    playMusicList: (v) => void,
   }
 
   render() {
@@ -61,6 +64,9 @@ class PlayerControl extends Component {
         </TouchableOpacity>
         <MusicList
           visible={this.state.visible}
+          currentMusicInfo={this.props.currentMusicInfo}
+          musicData={this.props.musicData}
+          playMusicList={(v) => this.props.playMusicList(v)}
           onCancel={() => {
                   this.setState({
                       visible: false,

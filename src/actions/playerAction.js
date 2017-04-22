@@ -3,12 +3,14 @@
  */
 import { searchMusic } from "../utils/API"
 
-export function setMusicList(musicList: Array<Object>) {
+
+export function setPlayMusicList(playMusicList: Array<Object>) {
   return {
-    type: 'setMusicList',
-    musicList,
+    type: 'setPlayMusicList',
+    playMusicList,
   }
 }
+
 export function setCurrentMusicInfo(musicInfo: Object) {
   return {
     type: 'setCurrentMusicInfo',
@@ -47,4 +49,23 @@ export function playFindMusic(musicInfo: {
     setPlayerStatus({
       paused: false,
     })]
+}
+
+export function playMusicList(id: number) {
+  return (dispatch: () => void, getState: () => void) => {
+    let newCurrentMusicInfo = {}
+    const store = getState()
+    const { player = {} } = store || {}
+    const { musicList = [] } = player
+    musicList.map((item, key) => {
+      if(item.id === id){
+        newCurrentMusicInfo = item
+      }
+    })
+    return [
+      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
+      dispatch(setPlayerStatus({
+      paused: false,
+    }))]
+  }
 }

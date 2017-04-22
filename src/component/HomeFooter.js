@@ -11,13 +11,13 @@ import {
   Text,
   Thumbnail,
   Container, Content,
-  List, ListItem, Icon, Button,
+  List, ListItem, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
 import Player from './Player'
 import MusicList from './MusicList'
 import MusicPlayer from '../pages/MusicPlayer'
-import { setPlayerStatus } from "../actions/playerAction";
+import { setPlayerStatus, playMusicList } from "../actions/playerAction";
 
 class HomeFooter extends Component {
   constructor(props){
@@ -67,15 +67,16 @@ class HomeFooter extends Component {
                       }) }}>
               <Thumbnail square
                          style={{width: 48, height: 48,}}
-                         source={{uri: currentMusicInfo.pic_small}}/>
+                         source={{uri: currentMusicInfo.imgSrc}}/>
               <Body>
-                <Text>{currentMusicInfo.title}</Text>
-                <Text note>Its time to build a difference . .</Text>
+                <Text>{currentMusicInfo.singer}</Text>
+                <Text note>{currentMusicInfo.songName}</Text>
               </Body>
-              <TouchableOpacity>
-                <Thumbnail
-                  style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
-                  source={require('../images/play.png')}/>
+              <TouchableOpacity
+                style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
+                onPress={() => this.pausedChange()}
+              >
+                <Icon name={status.paused? 'play': 'pause'} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -87,13 +88,16 @@ class HomeFooter extends Component {
               </TouchableOpacity>
               <MusicList
                 visible={this.state.visible}
+                musicData={this.props.musicData}
+                currentMusicInfo={currentMusicInfo}
+                playMusicList={(v) => this.props.playMusicList(v)}
                 onCancel={() => {
                   this.setState({
                       visible: false,
                     })
               }}/>
               <Player
-                fileSrc={currentMusicInfo.fileSrc || currentMusicInfo.file_link}
+                fileSrc={currentMusicInfo.fileSrc}
                 volume={this.state.volume}
                 paused={status.paused}
                 muted={status.muted}
@@ -113,6 +117,7 @@ class HomeFooter extends Component {
                 pausedChange={() => this.pausedChange()}
                 muted={status.muted}
                 mutedChange={() => this.mutedChange()}
+                musicData={this.props.musicData}
               />
             </ListItem>
           </List>
@@ -133,6 +138,7 @@ function mapProps(store) {
 function mapAction(dispatch) {
   return {
     setPlayerStatus: (v) => dispatch(setPlayerStatus(v)),
+    playMusicList: (v) => dispatch(playMusicList(v)),
   }
 }
 

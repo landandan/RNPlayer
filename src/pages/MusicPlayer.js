@@ -17,7 +17,9 @@ import {
 import { connect } from 'react-redux'
 import Disc from '../component/player/Disc'
 import VolumeModule from '../component/player/VolumeModule'
-import PlayerControlFooter from '../component/player/playerControl'
+import PlayerControlFooter from '../component/player/PlayerControl'
+import ProgressBar from '../component/player/ProgressBar'
+import { playMusicList } from "../actions/playerAction";
 
 class MusicPlayer extends Component {
   constructor(props) {
@@ -33,6 +35,8 @@ class MusicPlayer extends Component {
     mutedChange: () => void,
     paused: boolean,
     pausedChange: () => void,
+    musicData: Array<Object>,
+    playMusicList: (v) => void,
   }
 
   render() {
@@ -72,10 +76,16 @@ class MusicPlayer extends Component {
             volumeChange={this.props.volumeChange}
           />
           <Disc/>
+          <ProgressBar
+            currentValue={0}
+          />
         </Content>
         <Footer>
           <PlayerControlFooter
+            musicData={this.props.musicData}
             paused={this.props.paused}
+            playMusicList={(v) => this.props.playMusicList(v)}
+            currentMusicInfo={currentMusicInfo}
             pausedChange={this.props.pausedChange}
           />
         </Footer>
@@ -94,6 +104,7 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
+    playMusicList: (v) => dispatch(playMusicList(v))
   }
 }
 

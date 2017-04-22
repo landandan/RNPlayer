@@ -50,7 +50,7 @@ class SearchPage extends Component {
           <Button
             transparent
             onPress={() => {
-              console.log('searchContent:', this.state.searchContent)
+              //console.log('searchContent:', this.state.searchContent)
               this.props.setSearchResultList(this.state.searchContent)
             }}>
             <Text>搜索</Text>

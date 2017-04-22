@@ -11,20 +11,19 @@ import {
 import { connect } from 'react-redux'
 import {
   Container, Header,
-  Title, Content, Footer,
-  FooterTab, Button, Left,
-  Right, Body, Icon, Drawer,
-  Item, Input, Tabs, Tab,
+  Footer, Button, Left,
+  Right, Icon, Drawer,
+  Tabs, Tab,
 } from 'native-base'
 
 import { Actions } from 'react-native-router-flux'
 import Sidebar from '../component/Sidebar'
-import { getMusicList } from "../utils/API";
-import { setMusicList, setCurrentMusicInfo } from "../actions/playerAction";
+import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import HomeFooter from '../component/HomeFooter'
 import HomeSwiper from '../component/HomeSwiper'
 import SongList from '../component/SongList'
 import { setNETSHomeData } from "../actions/homeAction"
+import InitMusicList from "../utils/InitMusicList"
 
 const { width } = Dimensions.get('window')
 
@@ -35,11 +34,10 @@ class HomePage extends Component {
   }
 
   async init() {
-    const result = await getMusicList()
-    this.props.setMusicList(result)
-    if ( result && result.song_list && result.song_list.length > 0 ) {
-      this.props.setCurrentMusicInfo(result.song_list[0])
-    }
+    //const result = await getMusicList()
+    const musicData = InitMusicList.musicData
+    this.props.setPlayMusicList(musicData)
+    this.props.setCurrentMusicInfo(musicData[0])
     this.props.setNETSHomeData()
   }
 
@@ -59,7 +57,7 @@ class HomePage extends Component {
         onClose={() => this.closeDrawer()}
       >
         <Container>
-          <Header searchBar hasTabs>
+          <Header hasTabs>
             <Left>
               <Button
                 transparent
@@ -91,7 +89,9 @@ class HomePage extends Component {
             </Tab>
           </Tabs>
           <Footer>
-            <HomeFooter/>
+            <HomeFooter
+              musicData={InitMusicList.musicData}
+            />
           </Footer>
         </Container>
       </Drawer>
@@ -100,7 +100,7 @@ class HomePage extends Component {
 }
 
 function mapProps(store) {
-  console.log('store:', store)
+  //console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
   const { banners = [], hotspot = [] } = NETSHomeData || {}
   return {
@@ -111,7 +111,7 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
-    setMusicList: (r) => dispatch(setMusicList(r)),
+    setPlayMusicList: (r) => dispatch(setPlayMusicList(r)),
     setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
     setNETSHomeData: async()=>dispatch(await setNETSHomeData()),
   }
