@@ -39,13 +39,13 @@ class Disc extends Component {
     })
     return(
       <View style={{ marginTop: 30 }}>
-        <Image source={require('../images/胶片盘.png')} style={{width:220,height:220,alignSelf:'center'}}/>
+        <Image source={require('../../images/胶片盘.png')} style={{width:220,height:220,alignSelf:'center'}}/>
 
         {/*旋转小图*/}
         <Animated.Image
           ref = 'myAnimate'
           style={{width:140,height:140,marginTop: -180,alignSelf:'center',borderRadius: 140*0.5,transform: [{rotate: spin}]}}
-          source={require('../images/header.jpeg')}
+          source={require('../../images/header.jpeg')}
         />
       </View>
     )
