@@ -10,16 +10,14 @@ import {
 import {
   Container, Header,
   Title, Content, Footer,
-  FooterTab, Button, Left,
-  Right, Body, Icon, Drawer,
-  Item, Input, Tabs, Tab, Text,
+  Button, Left,
+  Right, Body, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
 import Disc from '../component/player/Disc'
 import VolumeModule from '../component/player/VolumeModule'
-import PlayerControlFooter from '../component/player/PlayerControl'
+import PlayerControl from '../component/player/PlayerControl'
 import ProgressBar from '../component/player/ProgressBar'
-import { playMusicList } from "../actions/playerAction";
 
 class MusicPlayer extends Component {
   constructor(props) {
@@ -29,14 +27,7 @@ class MusicPlayer extends Component {
   props: {
     playerVisible: boolean,
     onCancel: () => void,
-    volume: number,
-    volumeChange: (v) => void,
-    muted: boolean,
-    mutedChange: () => void,
-    paused: boolean,
-    pausedChange: () => void,
     musicData: Array<Object>,
-    playMusicList: (v) => void,
   }
 
   render() {
@@ -55,7 +46,7 @@ class MusicPlayer extends Component {
             </Button>
           </Left>
           <Body>
-          <Title>{currentMusicInfo.title}</Title>
+          <Title>{currentMusicInfo.songName || '未知'} - {currentMusicInfo.singer || '佚名'}</Title>
           </Body>
           <Right>
             <Button
@@ -69,24 +60,15 @@ class MusicPlayer extends Component {
           </Right>
         </Header>
         <Content>
-          <VolumeModule
-            muted={this.props.muted}
-            mutedChange={this.props.mutedChange}
-            volume={this.props.volume}
-            volumeChange={this.props.volumeChange}
-          />
+          <VolumeModule/>
           <Disc/>
           <ProgressBar
             currentValue={0}
           />
         </Content>
         <Footer>
-          <PlayerControlFooter
+          <PlayerControl
             musicData={this.props.musicData}
-            paused={this.props.paused}
-            playMusicList={(v) => this.props.playMusicList(v)}
-            currentMusicInfo={currentMusicInfo}
-            pausedChange={this.props.pausedChange}
           />
         </Footer>
       </Container>
@@ -104,7 +86,7 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
-    playMusicList: (v) => dispatch(playMusicList(v))
+
   }
 }
 
