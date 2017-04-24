@@ -57,7 +57,7 @@ export function playMusicList(id: number) {
     const store = getState()
     const { player = {} } = store || {}
     const { musicList = [] } = player
-    musicList.map((item, key) => {
+    musicList.forEach((item, index) => {
       if(item.id === id){
         newCurrentMusicInfo = item
       }
@@ -67,5 +67,43 @@ export function playMusicList(id: number) {
       dispatch(setPlayerStatus({
       paused: false,
     }))]
+  }
+}
+
+export function playMusicListNext() {
+  return (dispatch: () => void, getState: () => void) => {
+    let newCurrentMusicInfo = {}
+    const store = getState()
+    const { player = {} } = store || {}
+    const { musicList = [], currentMusicInfo = {} } = player
+    for(let i = 0; i < musicList.length; i++ ){
+      if(musicList[i].id === currentMusicInfo.id){
+        newCurrentMusicInfo = musicList[i + 1] || musicList[0]
+      }
+    }
+    return [
+      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
+      dispatch(setPlayerStatus({
+        paused: false,
+      }))]
+  }
+}
+
+export function playMusicListPre() {
+  return (dispatch: () => void, getState: () => void) => {
+    let newCurrentMusicInfo = {}
+    const store = getState()
+    const { player = {} } = store || {}
+    const { musicList = [], currentMusicInfo = {} } = player
+    for(let i = 0; i < musicList.length; i++ ){
+      if(musicList[i].id === currentMusicInfo.id){
+        newCurrentMusicInfo = musicList[i - 1] || musicList[musicList.length]
+      }
+    }
+    return [
+      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
+      dispatch(setPlayerStatus({
+        paused: false,
+      }))]
   }
 }
