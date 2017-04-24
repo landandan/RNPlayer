@@ -36,6 +36,7 @@ function searchResultList(state = {}, action = {}) {
 function status(state = {
   paused: true,
   muted: false,
+  volume: 0.8,
 }, action = {}) {
   if (action.type === 'setPlayerStatus') {
     return {
