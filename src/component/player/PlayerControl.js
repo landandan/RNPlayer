@@ -27,7 +27,6 @@ class PlayerControl extends Component {
 
   props: {
     pausedChange: () => void,
-    musicData: Array<Object>,
     playMusicListPre: () => void,
     playMusicListNext: () => void,
   }
@@ -72,7 +71,6 @@ class PlayerControl extends Component {
         </TouchableOpacity>
         <MusicList
           visible={this.state.visible}
-          musicData={this.props.musicData}
           onCancel={() => {
                   this.setState({
                       visible: false,
