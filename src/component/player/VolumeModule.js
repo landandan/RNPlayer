@@ -26,7 +26,7 @@ class VolumeModule extends Component {
   render() {
     const { muted, volume } = this.props.status
     return (
-      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity
           onPress={this.props.mutedChange}
           style={{ marginLeft: 10 }}
