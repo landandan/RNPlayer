@@ -48,7 +48,7 @@ class HomeFooter extends Component {
                          source={{uri: currentMusicInfo.imgSrc}}/>
               <Body>
                 <Text>{currentMusicInfo.singer}</Text>
-                <Text note>{currentMusicInfo.songName}</Text>
+                <Text style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
               </Body>
               <TouchableOpacity
                 style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
@@ -66,7 +66,6 @@ class HomeFooter extends Component {
               </TouchableOpacity>
               <MusicList
                 visible={this.state.visible}
-                musicData={this.props.musicData}
                 onCancel={() => {
                   this.setState({
                       visible: false,
@@ -80,7 +79,6 @@ class HomeFooter extends Component {
                       playerVisible: false,
                     })
                   }}
-                musicData={this.props.musicData}
               />
             </ListItem>
           </List>
