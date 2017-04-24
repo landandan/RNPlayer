@@ -6,7 +6,6 @@ import { combineReducers } from 'redux'
 function musicList(state = {}, action = {}) {
   if (action.type === 'setPlayMusicList') {
     return [
-      ...state,
       ...action.playMusicList,
     ]
   }
