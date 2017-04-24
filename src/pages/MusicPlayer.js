@@ -27,7 +27,6 @@ class MusicPlayer extends Component {
   props: {
     playerVisible: boolean,
     onCancel: () => void,
-    musicData: Array<Object>,
   }
 
   render() {
@@ -67,9 +66,7 @@ class MusicPlayer extends Component {
           />
         </View>
         <Footer>
-          <PlayerControl
-            musicData={this.props.musicData}
-          />
+          <PlayerControl />
         </Footer>
       </Container>
       </Modal>
