@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import {
-  Icon, Button,
+  Icon,
 } from 'native-base'
+import { connect } from 'react-redux'
 import MusicList from '../MusicList'
+import { playMusicListNext, playMusicListPre, pausedChange } from "../../actions/playerAction"
 
 class PlayerControl extends Component {
   constructor(props) {
@@ -24,14 +26,14 @@ class PlayerControl extends Component {
   }
 
   props: {
-    paused: boolean,
     pausedChange: () => void,
     musicData: Array<Object>,
-    currentMusicInfo: Object,
-    playMusicList: (v) => void,
+    playMusicListPre: () => void,
+    playMusicListNext: () => void,
   }
 
   render() {
+    const { paused } = this.props.status
     return (
       <View
         style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -39,7 +41,10 @@ class PlayerControl extends Component {
           {/*repeat,shuffle,sync*/}
           <Icon name='repeat'/>
         </TouchableOpacity>
-        <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
+        <TouchableOpacity
+          transparent
+          onPress={this.props.playMusicListPre}
+          style={{paddingHorizontal: 10}}>
           <Icon name='skip-backward'/>
         </TouchableOpacity>
         <TouchableOpacity
@@ -47,9 +52,12 @@ class PlayerControl extends Component {
           onPress={this.props.pausedChange}
         >
           {/*pause:暂停,play：播放*/}
-          <Icon name={this.props.paused? 'play': 'pause'}/>
+          <Icon name={paused? 'play': 'pause'}/>
         </TouchableOpacity>
-        <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
+        <TouchableOpacity
+          transparent
+          onPress={this.props.playMusicListNext}
+          style={{paddingHorizontal: 10}}>
           <Icon name='skip-forward'/>
         </TouchableOpacity>
         <TouchableOpacity
@@ -64,9 +72,7 @@ class PlayerControl extends Component {
         </TouchableOpacity>
         <MusicList
           visible={this.state.visible}
-          currentMusicInfo={this.props.currentMusicInfo}
           musicData={this.props.musicData}
-          playMusicList={(v) => this.props.playMusicList(v)}
           onCancel={() => {
                   this.setState({
                       visible: false,
@@ -77,4 +83,20 @@ class PlayerControl extends Component {
   }
 }
 
-export default PlayerControl
+function mapProps(store) {
+  const { player } = store || {}
+  const { status = {} } = player
+  return {
+    status,
+  }
+}
+
+function mapAction(dispatch) {
+  return {
+    pausedChange: () => dispatch(pausedChange()),
+    playMusicListNext: () => dispatch(playMusicListNext()),
+    playMusicListPre: () => dispatch(playMusicListPre()),
+  }
+}
+
+export default connect(mapProps, mapAction)(PlayerControl)
