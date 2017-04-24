@@ -63,10 +63,10 @@ class SearchPage extends Component {
                     <ListItem
                       onPress={() => {
                         this.props.playFindMusic({
-                          songName: (item.f.split('|')[3]&& item.f.split('|')[3].replace(/amp\;/g, '').replace(/\;/g, '/') || '佚名')+' - '+item.fsong,
-                          singer: '',
-                          fileSrc: item.f.split('|')[0],
-                          imgSrc: item.f.split('|')[4]&&'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg',
+                          id: parseInt(item.f.split('|')[0] ),
+                          songName: item.fsong || '未知',
+                          singer: item.fsinger || '佚名',
+                          imgSrc: item.f.split('|')[4] && 'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg',
                         })
                       }}
                     >
