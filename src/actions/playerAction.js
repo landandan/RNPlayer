@@ -58,15 +58,15 @@ export function playMusicList(id: number) {
     const { player = {} } = store || {}
     const { musicList = [] } = player
     musicList.forEach((item, index) => {
-      if(item.id === id){
+      if ( item.id === id ) {
         newCurrentMusicInfo = item
       }
     })
     return [
       dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
       dispatch(setPlayerStatus({
-      paused: false,
-    }))]
+        paused: false,
+      }))]
   }
 }
 
@@ -76,8 +76,8 @@ export function playMusicListNext() {
     const store = getState()
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
-    for(let i = 0; i < musicList.length; i++ ){
-      if(musicList[i].id === currentMusicInfo.id){
+    for (let i = 0; i < musicList.length; i++) {
+      if ( musicList[i].id === currentMusicInfo.id ) {
         newCurrentMusicInfo = musicList[i + 1] || musicList[0]
       }
     }
@@ -95,9 +95,9 @@ export function playMusicListPre() {
     const store = getState()
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
-    for(let i = 0; i < musicList.length; i++ ){
-      if(musicList[i].id === currentMusicInfo.id){
-        newCurrentMusicInfo = musicList[i - 1] || musicList[musicList.length]
+    for (let i = 0; i < musicList.length; i++) {
+      if ( musicList[i].id === currentMusicInfo.id ) {
+        newCurrentMusicInfo = musicList[i - 1] || musicList[musicList.length - 1]
       }
     }
     return [
@@ -107,3 +107,32 @@ export function playMusicListPre() {
       }))]
   }
 }
+
+export function pausedChange() {
+  return (dispatch: () => void, getState: () => void) => {
+    const store = getState()
+    const { player = {} } = store || {}
+    const { status } = player
+    return dispatch(setPlayerStatus({
+      paused: !status.paused,
+    }))
+  }
+}
+
+export function mutedChange() {
+  return (dispatch: () => void, getState: () => void) => {
+    const store = getState()
+    const { player = {} } = store || {}
+    const { status } = player
+    return dispatch(setPlayerStatus({
+      muted: !status.muted,
+    }))
+  }
+}
+
+export function volumeChange(value: number) {
+  return setPlayerStatus({
+    volume: value,
+  })
+}
+
