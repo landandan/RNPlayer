@@ -7,34 +7,49 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import Video from 'react-native-video'
-import { playMusicListNext } from "../actions/playerAction";
+import { playMusicListNext, setCurrentMusicDuration, setMusicCurrentTime } from "../actions/playerAction";
 
 class Player extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      duration: 0.0,
-    }
   }
 
   props: {
     status: Object,
     currentMusicInfo: Object,
     playMusicListNext: () => void,
+    setCurrentMusicDuration: (v) => void,
+    setMusicCurrentTime: (v) => void,
   }
 
   onLoad(data) {
     //console.log('data:', data)
-    this.setState({
-      duration: data.duration,
-    })
+    this.props.setCurrentMusicDuration(data.duration)
+  }
+
+  onEnd(data) {
+    //console.log('onEnd:', data)
+    this.props.playMusicListNext()
+  }
+  onError(data) {
+    //console.log('onError:', data)
+    if(data.error){
+      this.props.playMusicListNext()
+    }
+  }
+  onBuffer(data) {
+    console.log('onBuffer:', data)
+  }
+  onLoadStart(data) {
+    console.log('onLoadStart:', data)
+  }
+  onTimedMetadata(data) {
+    console.log('onTimedMetadata:', data)
   }
 
   onProgress = (data) => {
-    let val = parseInt(data.currentTime)
-    if ( val >= this.state.duration ) {
-      this.props.playMusicListNext()
-    }
+    //console.log('onProgress:', data)
+    this.props.setMusicCurrentTime(data.currentTime)
   }
 
   render() {
@@ -49,6 +64,11 @@ class Player extends Component {
         paused={paused}
         onProgress={(e) => this.onProgress(e)}
         onLoad={(e) => this.onLoad(e)}
+        onEnd={(e) => this.onEnd(e)}
+        onError={(e) => this.onError(e)}
+        //onBuffer={(e) => this.onBuffer(e)}
+        //onLoadStart={(e) => this.onLoadStart(e)}
+        //onTimedMetadata={(e) => this.onTimedMetadata(e)}
       />
     )
   }
@@ -65,6 +85,8 @@ function mapProps(store) {
 function mapAction(dispatch) {
   return {
     playMusicListNext: () => dispatch(playMusicListNext()),
+    setCurrentMusicDuration: (v) => dispatch(setCurrentMusicDuration(v)),
+    setMusicCurrentTime: (v) => dispatch(setMusicCurrentTime(v)),
   }
 }
 
