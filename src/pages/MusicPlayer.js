@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import {
   Container, Header,
-  Title, Content, Footer,
+  Title, Footer,
   Button, Left,
   Right, Body, Icon,
 } from 'native-base'
@@ -59,13 +59,13 @@ class MusicPlayer extends Component {
             </Button>
           </Right>
         </Header>
-        <Content>
+        <View style={{flex: 1}}>
           <VolumeModule/>
           <Disc/>
           <ProgressBar
             currentValue={0}
           />
-        </Content>
+        </View>
         <Footer>
           <PlayerControl
             musicData={this.props.musicData}
