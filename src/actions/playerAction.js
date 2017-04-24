@@ -136,3 +136,15 @@ export function volumeChange(value: number) {
   })
 }
 
+export function setCurrentMusicDuration(value: number) {
+  return setPlayerStatus({
+    duration: value,
+  })
+}
+
+export function setMusicCurrentTime(value: number) {
+  return setPlayerStatus({
+    currentTime: value,
+  })
+}
+
