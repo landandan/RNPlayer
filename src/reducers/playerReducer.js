@@ -37,6 +37,8 @@ function status(state = {
   paused: true,
   muted: false,
   volume: 0.8,
+  currentTime: 0,
+  duration: 0,
 }, action = {}) {
   if (action.type === 'setPlayerStatus') {
     return {
