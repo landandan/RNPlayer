@@ -37,18 +37,29 @@ export function setPlayerStatus(status: Object) {
 export function playFindMusic(musicInfo: {
   songName: string,
   singer: string,
-  fileSrc: string,
+  id: number,
   imgSrc: string,
 }) {
   const newCurrentMusicInfo = {
     ...musicInfo,
-    fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.fileSrc}.m4a?fromtag=46`,
+    fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.id}.m4a?fromtag=46`,
   }
   return [
     setCurrentMusicInfo(newCurrentMusicInfo),
+    addSongToMusicList(newCurrentMusicInfo),
     setPlayerStatus({
       paused: false,
     })]
+}
+
+export function addSongToMusicList(musicInfo: Object) {
+  return (dispatch: () => void, getState: () => void) => {
+    const store = getState()
+    const { player = {} } = store || {}
+    const { musicList = [] } = player
+    let newMusicList = musicList.concat([musicInfo])
+    return dispatch(setPlayMusicList(newMusicList))
+  }
 }
 
 export function playMusicList(id: number) {
