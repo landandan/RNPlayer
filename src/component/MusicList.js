@@ -42,12 +42,11 @@ class MusicList extends Component {
   props: {
     visible: boolean,
     onCancel: () => void,
-    musicData: Array<Object>,
     player: Object,
     playMusicList: (v) => void,
   }
   render() {
-    const { currentMusicInfo } = this.props.player
+    const { currentMusicInfo = {}, musicList = []  } = this.props.player || {}
     // TO DO
     // 点击其他歌曲时 不能同步刷新
     return (
@@ -62,7 +61,7 @@ class MusicList extends Component {
             <Container>
               <Content>
                 <List
-                  dataArray={this.props.musicData || []}
+                  dataArray={musicList || []}
                   renderRow={
                     (item) =>
                       <ListItem
