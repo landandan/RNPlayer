@@ -77,3 +77,22 @@ export async function getNTESHomeMusic() {
     console.error(error)
   }
 }
+
+export async function getJokeFormTouTiao (jokeInfo:{
+  minBeHotTime: string,
+}) {
+  try {
+    let result
+    const url = 'http://is.snssdk.com/api/news/feed/v51/?category=essay_joke&refer=1&count=20&min_behot_time=' + jokeInfo.minBeHotTime
+    await fetch(url,
+      {
+        method: 'GET',
+      }).then((response) => response.json())
+      .then((responseJSON) => {
+        result = responseJSON
+      })
+    return result || {}
+  } catch (error) {
+    console.error(error)
+  }
+}
