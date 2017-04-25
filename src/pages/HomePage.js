@@ -7,7 +7,7 @@ import {
   Text,
   View,
   Dimensions,
-} from 'react-native';
+} from 'react-native'
 import { connect } from 'react-redux'
 import {
   Container, Header,
@@ -22,8 +22,10 @@ import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import HomeFooter from '../component/HomeFooter'
 import HomeSwiper from '../component/HomeSwiper'
 import SongList from '../component/SongList'
+import Joke from '../component/Joke'
 import { setNETSHomeData } from "../actions/homeAction"
 import InitMusicList from "../utils/InitMusicList"
+import { setJokeList } from "../actions/jokeAction";
 
 const { width } = Dimensions.get('window')
 
@@ -39,6 +41,7 @@ class HomePage extends Component {
     this.props.setPlayMusicList(musicData)
     this.props.setCurrentMusicInfo(musicData[0])
     this.props.setNETSHomeData()
+    this.props.setJokeList()
   }
 
   closeDrawer() {
@@ -84,8 +87,8 @@ class HomePage extends Component {
             <Tab heading={ <View><Text>歌单</Text></View>}>
               <Text>歌单</Text>
             </Tab>
-            <Tab heading={ <View><Text>排行榜</Text></View>}>
-              <Text>排行榜</Text>
+            <Tab heading={ <View><Text>段子</Text></View>}>
+              <Joke />
             </Tab>
           </Tabs>
           <Footer>
@@ -113,7 +116,8 @@ function mapAction(dispatch) {
   return {
     setPlayMusicList: (r) => dispatch(setPlayMusicList(r)),
     setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
-    setNETSHomeData: async()=>dispatch(await setNETSHomeData()),
+    setNETSHomeData: async() => dispatch(await setNETSHomeData()),
+    setJokeList: async() => dispatch(await setJokeList()),
   }
 }
 
