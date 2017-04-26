@@ -6,8 +6,6 @@ react-native音乐播放器
   git clone https://github.com/landandan/RNPlayer.git
   
   npm i
-  
-  react-native link
   ```
   
 # 引用库
@@ -15,6 +13,9 @@ react-native音乐播放器
 [native-base](https://nativebase.io/)
 第一次使用，感觉不是那么好用
 
+# 遇到的问题
+`Duplicate module name: ---`  
+解决方案：[https://github.com/aksonov/react-native-router-flux/issues/1809](https://github.com/aksonov/react-native-router-flux/issues/1809)
 
 # 参考项目
 [https://github.com/microzz/vue-music-player](https://github.com/microzz/vue-music-player)
