@@ -1,7 +1,7 @@
 /**
  * @flow
  */
-import { getJokeFormTouTiao } from "../utils/API";
+import { getJokeFormTouTiao } from "../utils/API/JokeAPI"
 
 export function setJokeInfo(jokeInfo: Object) {
   return {
