@@ -96,6 +96,7 @@ class HomePage extends Component {
               musicData={InitMusicList.musicData}
             />
           </Footer>
+          {/*<SoundModule />*/}
         </Container>
       </Drawer>
     );

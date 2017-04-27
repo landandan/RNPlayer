@@ -20,7 +20,7 @@ export async function fetchAPI(url: string, params: Object) {
     })
   try {
     result = await response.json()
-    console.log('result:', result)
+    //console.log('result:', result)
     if ( !result ) {
       throw new Error('系统繁忙，请稍后再试。')
     }

@@ -14,7 +14,7 @@ import {
   List, ListItem, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
-import Player from './Player'
+import AudioPlayer from './AudioPlayer'
 import MusicList from './MusicList'
 import MusicPlayer from '../pages/MusicPlayer'
 import { playMusicList, pausedChange } from "../actions/playerAction";
@@ -71,7 +71,7 @@ class HomeFooter extends Component {
                       visible: false,
                     })
               }}/>
-              <Player />
+              <AudioPlayer />
               <MusicPlayer
                 playerVisible={this.state.playerVisible}
                 onCancel={() => {

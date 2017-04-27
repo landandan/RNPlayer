@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import Video from 'react-native-video'
 import { playMusicListNext, setCurrentMusicDuration, setMusicCurrentTime } from "../actions/playerAction";
 
-class Player extends Component {
+class AudioPlayer extends Component {
   constructor(props) {
     super(props)
   }
@@ -66,6 +66,7 @@ class Player extends Component {
         onLoad={(e) => this.onLoad(e)}
         onEnd={(e) => this.onEnd(e)}
         onError={(e) => this.onError(e)}
+        playInBackground
         //onBuffer={(e) => this.onBuffer(e)}
         //onLoadStart={(e) => this.onLoadStart(e)}
         //onTimedMetadata={(e) => this.onTimedMetadata(e)}
@@ -90,4 +91,4 @@ function mapAction(dispatch) {
   }
 }
 
-export default connect(mapProps, mapAction)(Player)
+export default connect(mapProps, mapAction)(AudioPlayer)
