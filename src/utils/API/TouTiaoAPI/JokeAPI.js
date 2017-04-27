@@ -1,7 +1,7 @@
 /**
  * @flow
  */
-import { fetchAPI } from "../Common";
+import { fetchAPI } from "../../Common";
 
 export async function getJokeFormTouTiao (jokeInfo:{
   minBeHotTime: string,
