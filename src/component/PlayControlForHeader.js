@@ -12,12 +12,16 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import { pausedChange, playMusicListNext, playMusicListPre } from "../actions/playerAction"
+import { pushOrPopToRoute } from "../actions/routeAction";
 
 class PlayControlForHeader extends Component {
   render() {
     const { paused } = this.props.status
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <TouchableOpacity
+        style={{ flexDirection: 'row', alignItems: 'center' }}
+        onPress={() => this.props.pushOrPopToRoute({ routeName: 'MusicPlayer' })}
+      >
         {/*<TouchableOpacity*/}
         {/*transparent*/}
         {/*onPress={this.props.playMusicListPre}*/}
@@ -38,7 +42,7 @@ class PlayControlForHeader extends Component {
           <Icon name='skip-forward' style={{color:'#007aff'}}/>
         </TouchableOpacity>
         <Text>{this.props.currentMusicInfo.singer} - {this.props.currentMusicInfo.songName}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -58,6 +62,7 @@ function mapAction(dispatch) {
     pausedChange: () => dispatch(pausedChange()),
     playMusicListNext: () => dispatch(playMusicListNext()),
     //playMusicListPre: () => dispatch(playMusicListPre()),
+    pushOrPopToRoute: (v) => dispatch(pushOrPopToRoute(v)),
   }
 }
 
