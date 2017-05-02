@@ -71,7 +71,6 @@ class HomeFooter extends Component {
                       visible: false,
                     })
               }}/>
-              <AudioPlayer />
               <MusicPlayer
                 playerVisible={this.state.playerVisible}
                 onCancel={() => {
