@@ -1,8 +1,7 @@
 /**
  * @flow
  */
-import { searchMusic } from "../utils/API"
-
+import searchMusic from "../utils/API/QQMusic/search"
 
 export function setPlayMusicList(playMusicList: Array<Object>) {
   return {
