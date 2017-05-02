@@ -7,45 +7,45 @@ import {
 } from 'react-native'
 import {
   Container,
-  Header, InputGroup, Input, Icon, Button,
+  Header, Input, Icon, Button,
   Text, Item, Content, List, ListItem,
   Thumbnail, Body,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
 import { setSearchResultList, playFindMusic } from "../actions/playerAction";
+import { popRoute } from "../actions/routeAction";
 
 class SearchPage extends Component {
-  constructor(){
+  constructor() {
     super()
-    this.state ={
+    this.state = {
       searchContent: '',
     }
   }
+
   state: {
     searchContent: string,
   }
+
   render() {
-    return(
+    return (
       <Container>
         <Header searchBar rounded>
           <Button
             transparent
-            onPress={() =>{
-                    Actions.pop()
-                  } }
+            onPress={() => this.props.popRoute()}
           >
             <Icon name='arrow-round-back' style={{ marginLeft: -10 }}/>
           </Button>
           <Item>
-            <Icon name="search" />
+            <Icon name="search"/>
             <Input
               placeholder="搜索歌曲名或歌手名"
               onChangeText={(v) => {
                 this.setState({
                   searchContent: v,
                 })
-              }} />
+              }}/>
           </Item>
           <Button
             transparent
@@ -96,8 +96,9 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
-    setSearchResultList: async (r) => dispatch(await setSearchResultList(r)),
+    setSearchResultList: async(r) => dispatch(await setSearchResultList(r)),
     playFindMusic: (r) => dispatch(playFindMusic(r)),
+    popRoute: () => dispatch(popRoute()),
   }
 }
 
