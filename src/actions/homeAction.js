@@ -21,3 +21,10 @@ export async function setNETSHomeData() {
     },
   }
 }
+
+export function setHomeFooterTabActive(active: string) {
+  return {
+    type: 'setHomeFooterTabActive',
+    active,
+  }
+}
