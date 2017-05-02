@@ -16,16 +16,21 @@ import {
   Tabs, Tab,
 } from 'native-base'
 
-import { Actions } from 'react-native-router-flux'
 import Sidebar from '../component/Sidebar'
 import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
-import HomeFooter from '../component/HomeFooter'
+import HomeFooterWithPlayControl from '../component/HomeFooterWithPlayControl'
+import HomeFooterWithTabs from '../component/HomeFooterWithTabs'
 import HomeSwiper from '../component/HomeSwiper'
 import SongList from '../component/SongList'
 import Joke from '../component/Joke'
 import { setNETSHomeData } from "../actions/homeAction"
+import getSongListByType from '../utils/API/NeteaseCloudMusicApi/recommendSongList'
 import InitMusicList from "../utils/InitMusicList"
-import { setJokeList } from "../actions/jokeAction";
+import { setJokeList } from "../actions/jokeAction"
+import { pushOrPopToRoute } from "../actions/routeAction";
+import PlayControlForHeader from '../component/PlayControlForHeader'
+import AudioPlayer from '../component/AudioPlayer'
+import Recommend from '../component/home/Recommend'
 
 const { width } = Dimensions.get('window')
 
@@ -36,12 +41,13 @@ class HomePage extends Component {
   }
 
   async init() {
-    //const result = await getMusicList()
     const musicData = InitMusicList.musicData
     this.props.setPlayMusicList(musicData)
     this.props.setCurrentMusicInfo(musicData[0])
     this.props.setNETSHomeData()
     this.props.setJokeList()
+    //const result = await getSongListByType()
+    //console.log('result:', result)
   }
 
   closeDrawer() {
@@ -53,6 +59,7 @@ class HomePage extends Component {
   }
 
   render() {
+    const active = this.props.homeFooterTab.active
     return (
       <Drawer
         ref={(ref) => { this._drawer = ref; }}
@@ -71,32 +78,26 @@ class HomePage extends Component {
                 <Icon name='menu'/>
               </Button>
             </Left>
+            <PlayControlForHeader/>
             <Right>
-              <Button transparent onPress={() => {Actions.searchPage()}}>
+              <Button transparent onPress={() => this.props.pushOrPopToRoute({ routeName: 'Search' })}>
                 <Icon name='search'/>
               </Button>
             </Right>
           </Header>
-          <Tabs>
-            <Tab heading={ <View><Text>推荐</Text></View>}>
-              <View style={{height: width * 200 / 540, width}}>
-                <HomeSwiper banners={this.props.banners}/>
-              </View>
-              <SongList songList={this.props.hotspot}/>
-            </Tab>
-            <Tab heading={ <View><Text>歌单</Text></View>}>
-              <Text>歌单</Text>
-            </Tab>
-            <Tab heading={ <View><Text>段子</Text></View>}>
-              <Joke />
-            </Tab>
-          </Tabs>
+          {
+            active === '推荐' && <Recommend />
+          }
+          {
+            active === '段子' && <Joke />
+          }
           <Footer>
-            <HomeFooter
-              musicData={InitMusicList.musicData}
-            />
+            <HomeFooterWithTabs/>
+            {/*<HomeFooterWithPlayControl*/}
+              {/*musicData={InitMusicList.musicData}*/}
+            {/*/>*/}
           </Footer>
-          {/*<SoundModule />*/}
+          <AudioPlayer />
         </Container>
       </Drawer>
     );
@@ -106,10 +107,12 @@ class HomePage extends Component {
 function mapProps(store) {
   //console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
+  const { homeFooterTab = {} } = store.homePage || {}
   const { banners = [], hotspot = [] } = NETSHomeData || {}
   return {
     banners,
     hotspot,
+    homeFooterTab,
   }
 }
 
@@ -119,6 +122,7 @@ function mapAction(dispatch) {
     setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
     setNETSHomeData: async() => dispatch(await setNETSHomeData()),
     setJokeList: async() => dispatch(await setJokeList()),
+    pushOrPopToRoute: (v) => dispatch(pushOrPopToRoute(v)),
   }
 }
 
