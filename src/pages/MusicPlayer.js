@@ -18,7 +18,6 @@ import Disc from '../component/player/Disc'
 import VolumeModule from '../component/player/VolumeModule'
 import PlayerControl from '../component/player/PlayerControl'
 import ProgressBar from '../component/player/ProgressBar'
-import { popRoute } from "../actions/routeAction";
 
 class MusicPlayer extends Component {
   constructor(props) {
@@ -28,10 +27,12 @@ class MusicPlayer extends Component {
   props: {
     playerVisible: boolean,
     onCancel: () => void,
+    navigation: Object,
   }
 
   render() {
     const { currentMusicInfo } = this.props.player
+    const navigation = this.props.navigation
     return (
       <Modal transparent visible={this.props.playerVisible}
              animationType="fade" onRequestClose={this.props.onCancel}>
@@ -40,7 +41,7 @@ class MusicPlayer extends Component {
             <Left>
               <Button
                 transparent
-                onPress={() => this.props.popRoute()}
+                onPress={() => navigation.goBack(null)}
               >
                 <Icon name='arrow-round-back'/>
               </Button>
@@ -82,10 +83,4 @@ function mapProps(store) {
   }
 }
 
-function mapAction(dispatch) {
-  return {
-    popRoute: () => dispatch(popRoute()),
-  }
-}
-
-export default connect(mapProps, mapAction)(MusicPlayer)
+export default connect(mapProps)(MusicPlayer)
