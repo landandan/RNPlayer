@@ -13,7 +13,6 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import { setSearchResultList, playFindMusic } from "../actions/playerAction";
-import { popRoute } from "../actions/routeAction";
 
 class SearchPage extends Component {
   constructor() {
@@ -28,12 +27,13 @@ class SearchPage extends Component {
   }
 
   render() {
+    const navigation = this.props.navigation
     return (
       <Container>
         <Header searchBar rounded>
           <Button
             transparent
-            onPress={() => this.props.popRoute()}
+            onPress={() => navigation.goBack(null)}
           >
             <Icon name='arrow-round-back' style={{ marginLeft: -10 }}/>
           </Button>
@@ -98,7 +98,6 @@ function mapAction(dispatch) {
   return {
     setSearchResultList: async(r) => dispatch(await setSearchResultList(r)),
     playFindMusic: (r) => dispatch(playFindMusic(r)),
-    popRoute: () => dispatch(popRoute()),
   }
 }
 
