@@ -24,33 +24,29 @@ class HomeFooter extends Component {
     super(props)
     this.state = {
       visible: false,
-      playerVisible: false,
     }
   }
 
   state: {
     visible: boolean,
-    playerVisible: boolean,
   }
 
   render() {
     const { currentMusicInfo, status } = this.props.player
+    const navigation = this.props.navigation
     return (
       <Container>
         <Content style={{backgroundColor: '#B72712'}}>
           <List>
             <ListItem style={{height: 55}}
-                      onPress={() => {
-                        this.setState({
-                        playerVisible: true,
-                      }) }}>
+                      onPress={() => navigation.navigate('MusicPlayer')}>
               <Thumbnail square
                          style={{width: 48, height: 48,}}
                          source={{uri: currentMusicInfo.imgSrc}}/>
               <Body>
-                <Text>{currentMusicInfo.singer}</Text>
-                <Text
-                  style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
+              <Text>{currentMusicInfo.singer}</Text>
+              <Text
+                style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
               </Body>
               <TouchableOpacity
                 style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
@@ -73,14 +69,6 @@ class HomeFooter extends Component {
                       visible: false,
                     })
               }}/>
-              <MusicPlayer
-                playerVisible={this.state.playerVisible}
-                onCancel={() => {
-                  this.setState({
-                      playerVisible: false,
-                    })
-                  }}
-              />
             </ListItem>
           </List>
         </Content>
