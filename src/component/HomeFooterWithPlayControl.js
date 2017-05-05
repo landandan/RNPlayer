@@ -20,13 +20,14 @@ import MusicPlayer from '../pages/MusicPlayer'
 import { playMusicList, pausedChange } from "../actions/playerAction";
 
 class HomeFooter extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       visible: false,
       playerVisible: false,
     }
   }
+
   state: {
     visible: boolean,
     playerVisible: boolean,
@@ -48,13 +49,14 @@ class HomeFooter extends Component {
                          source={{uri: currentMusicInfo.imgSrc}}/>
               <Body>
                 <Text>{currentMusicInfo.singer}</Text>
-                <Text style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
+                <Text
+                  style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
               </Body>
               <TouchableOpacity
                 style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
                 onPress={this.props.pausedChange}
               >
-                <Icon name={status.paused? 'play': 'pause'} />
+                <Icon name={status.paused? 'play': 'pause'}/>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
