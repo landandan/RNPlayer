@@ -7,37 +7,33 @@ import {
   Text,
   View,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native'
 import { connect } from 'react-redux'
 import {
   Container, Header,
   Footer, Button, Left,
   Right, Icon, Drawer,
-  Tabs, Tab,
+  Tabs, Tab, Fab,
 } from 'native-base'
 
 import Sidebar from '../component/Sidebar'
 import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
-import HomeFooterWithPlayControl from '../component/HomeFooterWithPlayControl'
-import HomeFooterWithTabs from '../component/HomeFooterWithTabs'
-import HomeSwiper from '../component/HomeSwiper'
-import SongList from '../component/SongList'
-import Joke from '../component/Joke'
 import { setNETSHomeData } from "../actions/homeAction"
-import getSongListByType from '../utils/API/NeteaseCloudMusicApi/recommendSongList'
 import InitMusicList from "../utils/InitMusicList"
 import { setJokeList } from "../actions/jokeAction"
-import { pushOrPopToRoute } from "../actions/routeAction";
-import PlayControlForHeader from '../component/PlayControlForHeader'
 import AudioPlayer from '../component/AudioPlayer'
-import Recommend from '../component/home/Recommend'
-
-const { width } = Dimensions.get('window')
+import {
+  addNavigationHelpers,
+} from 'react-navigation'
 
 class HomePage extends Component {
 
   componentWillMount() {
     this.init()
+    this.state = {
+      visible: false,
+    }
   }
 
   async init() {
@@ -59,7 +55,10 @@ class HomePage extends Component {
   }
 
   render() {
-    const active = this.props.homeFooterTab.active
+    const router = this.props.router
+    const navigation = this.props.navigation
+    const { routes, index } = navigation.state
+    const ActiveScreen = router.getComponentForState(navigation.state)
     return (
       <Drawer
         ref={(ref) => { this._drawer = ref; }}
@@ -67,7 +66,7 @@ class HomePage extends Component {
         onClose={() => this.closeDrawer()}
       >
         <Container>
-          <Header hasTabs>
+          <Header hasTabs style={{backgroundColor: '#B72712'}}>
             <Left>
               <Button
                 transparent
@@ -75,28 +74,44 @@ class HomePage extends Component {
                       this.openDrawer()
                     } }
               >
-                <Icon name='menu'/>
+                <Icon name='menu' style={{color: 'white'}}/>
               </Button>
             </Left>
-            <PlayControlForHeader/>
+            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center'}}>
+              {routes.map(route => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(route.routeName)}
+                  key={route.routeName}
+                >
+                  {
+                    route.routeName == 'Recommend' &&
+                    <Icon name="musical-notes" style={{color: 'white'}}/>
+                  }
+                  {
+                    route.routeName == 'MusicList' &&
+                    <Icon name="document" style={{paddingHorizontal: 20,color: 'white'}}/>
+                  }
+                  {
+                    route.routeName == 'Joke' && <Icon name="barcode" style={{color: 'white'}}/>
+                  }
+
+                </TouchableOpacity>
+              ))}
+            </View>
             <Right>
-              <Button transparent onPress={() => this.props.pushOrPopToRoute({ routeName: 'Search' })}>
-                <Icon name='search'/>
+              <Button transparent onPress={() => navigation.navigate('Search')}>
+                <Icon name='search' style={{color: 'white'}}/>
               </Button>
             </Right>
           </Header>
-          {
-            active === '推荐' && <Recommend />
-          }
-          {
-            active === '段子' && <Joke />
-          }
-          <Footer>
-            <HomeFooterWithTabs/>
-            {/*<HomeFooterWithPlayControl*/}
-              {/*musicData={InitMusicList.musicData}*/}
-            {/*/>*/}
-          </Footer>
+          <View style={{flex: 1}}>
+            <ActiveScreen
+              navigation={addNavigationHelpers({
+                ...navigation,
+                state: routes[index],
+              })}
+            />
+          </View>
           <AudioPlayer />
         </Container>
       </Drawer>
@@ -122,7 +137,6 @@ function mapAction(dispatch) {
     setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
     setNETSHomeData: async() => dispatch(await setNETSHomeData()),
     setJokeList: async() => dispatch(await setJokeList()),
-    pushOrPopToRoute: (v) => dispatch(pushOrPopToRoute(v)),
   }
 }
 
