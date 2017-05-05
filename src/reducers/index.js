@@ -11,6 +11,6 @@ const reducers = {
   player,
   homePage,
   joke,
-  route,
+  //route,
 }
 export default combineReducers(reducers)
