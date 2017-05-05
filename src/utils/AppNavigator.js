@@ -3,18 +3,50 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNavigationHelpers, StackNavigator } from 'react-navigation';
+import {
+  addNavigationHelpers,
+  StackNavigator,
+  TabNavigator,
+  TabRouter,
+  createNavigator,
+  createNavigationContainer,
+} from 'react-navigation';
 
 import HomePage from "../pages/HomePage"
 import SearchPage from "../pages/SearchPage"
 import MusicPlayer from '../pages/MusicPlayer'
+import RecommendModule from '../pages/RecommendModule'
+import MusicListModule from '../pages/MusicListModule'
+import JokeModule from '../pages/JokeModule'
+
+const CustomTabRouter = TabRouter({
+  Recommend: {
+    screen: RecommendModule,
+    path: 'recommend',
+  },
+  MusicList: {
+    screen: MusicListModule,
+    path: 'musicList',
+  },
+  Joke: {
+    screen: JokeModule,
+    path: 'joke',
+  },
+}, {
+  // Change this to start on a different tab
+  initialRouteName: 'Recommend',
+});
+
+const CustomTabs = createNavigationContainer(createNavigator(CustomTabRouter)(HomePage));
 
 export const AppNavigator = StackNavigator({
-  Home: { screen: HomePage },
+  Root: {
+    screen: CustomTabs,
+  },
   MusicPlayer: { screen: MusicPlayer },
   Search: { screen: SearchPage },
 }, {
-  initialRouteName: 'Home', // 默认显示界面
+  //initialRouteName: 'Root', // 默认显示界面
   mode: 'card',  // 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)
   headerMode: 'none',
 });
@@ -40,4 +72,4 @@ function mapProps(store) {
   }
 }
 
-export default connect(mapProps)(AppWithNavigationState)
+//export default connect(mapProps)(AppWithNavigationState)
