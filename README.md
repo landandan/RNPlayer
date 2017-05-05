@@ -1,5 +1,6 @@
 # RNPlayer
-react-native音乐播放器
+基于react-native的音乐播放器  
+音乐来源：网易云音乐
 
 # Start
 ```
