@@ -14,7 +14,6 @@ import {
   List, ListItem, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
-import AudioPlayer from './AudioPlayer'
 import MusicList from './MusicList'
 import MusicPlayer from '../pages/MusicPlayer'
 import { playMusicList, pausedChange } from "../actions/playerAction";
@@ -42,11 +41,11 @@ class HomeFooter extends Component {
                       onPress={() => navigation.navigate('MusicPlayer')}>
               <Thumbnail square
                          style={{width: 48, height: 48,}}
-                         source={{uri: currentMusicInfo.imgSrc}}/>
+                         source={{uri: currentMusicInfo.album.picUrl}}/>
               <Body>
-              <Text>{currentMusicInfo.singer}</Text>
+              <Text>{currentMusicInfo.artists[0].name}</Text>
               <Text
-                style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.songName}</Text>
+                style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.name}</Text>
               </Body>
               <TouchableOpacity
                 style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
