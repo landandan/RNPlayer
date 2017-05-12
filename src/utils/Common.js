@@ -14,7 +14,7 @@ export function transformTime(seconds) {
 
 export async function fetchAPI(url: string, params: Object) {
   let result
-  const response = await timeout(30000)(fetch(url, params))
+  const response = await timeout(180000)(fetch(url, params))
     .catch(() => {
       throw new Error('亲，您的网络连接失败，请重新尝试。')
     })
