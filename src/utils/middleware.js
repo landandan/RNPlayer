@@ -1,18 +1,20 @@
 /**
  * @flow
  */
+import _ from 'lodash'
+import { applyMiddleware } from 'redux'
 import { startLoading, finishLoading } from "../actions/loading"
 
-export function multiDispatcher({ dispatch }) {
+function multiDispatcher({ dispatch }) {
   return next => actions => {
-    if ( Array.isArray(actions) ) {
+    if ( _.isArray(actions) ) {
       return actions.map(action => dispatch(action))
     }
     return next(actions)
   }
 }
 
-export function promise({ dispatch }) {
+function promise({ dispatch }) {
   return next => action => {
     if ( action && typeof action.then === 'function' ) {
       dispatch(startLoading())
@@ -26,7 +28,7 @@ export function promise({ dispatch }) {
   }
 }
 
-export function thunkState({ dispatch, getState }) {
+function thunkState({ dispatch, getState }) {
   return next => action => {
     try {
       if ( getState().loading.loadingQueue.length <= 0 ) {
@@ -41,3 +43,16 @@ export function thunkState({ dispatch, getState }) {
     return next(action)
   }
 }
+
+const filterNil = () => (next) => (action) => {
+  if ( action != null ) {
+    next(action)
+  }
+}
+
+export default applyMiddleware(
+  multiDispatcher,
+  promise,
+  thunkState,
+  filterNil
+)
