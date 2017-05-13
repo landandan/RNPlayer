@@ -11,13 +11,12 @@ export function setJokeInfo(jokeInfo: Object) {
 }
 
 export async function setJokeList() {
-  return async (dispatch: () => void, getState: () => void) => {
-    const store = getState() || {}
+  return async(store) => {
     const { jokeInfo = {} } = store.joke
-    const jokeList = await getJokeFormTouTiao({minBeHotTime: jokeInfo.minBeHotTime || ''})
-    return [dispatch({
+    const jokeList = await getJokeFormTouTiao({ minBeHotTime: jokeInfo.minBeHotTime || '' })
+    return [{
       type: 'setJokeList',
       jokeList,
-    }), dispatch(setJokeInfo({minBeHotTime: new Date().getTime().toString().substring(0,10)}))]
+    }, setJokeInfo({ minBeHotTime: new Date().getTime().toString().substring(0, 10) })]
   }
 }
