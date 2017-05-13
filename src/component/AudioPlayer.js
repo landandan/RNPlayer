@@ -54,10 +54,10 @@ class AudioPlayer extends Component {
 
   render() {
     const { muted, paused, volume } = this.props.status
-    const { fileSrc = '' } = this.props.currentMusicInfo
+    const { mp3Url = '' } = this.props.currentMusicInfo
     return (
       <Video
-        source={{uri: (fileSrc || 'http://m2.music.126.net/7WiRhPdirEJ2axW9Xm6uJQ==/1415071481819545.mp3')}}
+        source={{uri: mp3Url}}
         //ref='video'
         muted={muted}
         volume={volume}
