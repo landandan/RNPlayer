@@ -12,6 +12,16 @@ function musicList(state = {}, action = {}) {
   return state
 }
 
+function currentMusicLrc(state = {}, action = {}) {
+  if (action.type === 'setCurrentMusicLrc') {
+    return {
+      ...state,
+      ...action.musicLrc,
+    }
+  }
+  return state
+}
+
 function currentMusicInfo(state = {}, action = {}) {
   if (action.type === 'setCurrentMusicInfo') {
     return {
@@ -49,8 +59,9 @@ function status(state = {
 }
 
 export default combineReducers({
+  status,
   musicList,
+  currentMusicLrc,
   currentMusicInfo,
   searchResultList,
-  status,
 })
