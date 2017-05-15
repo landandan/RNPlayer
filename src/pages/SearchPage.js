@@ -4,15 +4,17 @@
 import React, { Component } from 'react'
 import {
   View,
+  TouchableOpacity,
 } from 'react-native'
 import {
   Container,
   Header, Input, Icon, Button,
   Text, Item, Content, List, ListItem,
-  Thumbnail, Body,
+  Thumbnail, Body, Right, Left,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { setSearchResultList, playFindMusic } from "../actions/playerAction";
+import { playFindMusic } from "../actions/playerAction"
+import { searchNetease } from "../actions/searchAction"
 
 class SearchPage extends Component {
   constructor() {
@@ -26,8 +28,13 @@ class SearchPage extends Component {
     searchContent: string,
   }
 
+  async searchResource(keywords: string) {
+    await this.props.searchNetease(keywords)
+  }
+
   render() {
     const navigation = this.props.navigation
+    const { searchHistory = [], searchResult = {} } = this.props.searchPage
     return (
       <Container>
         <Header searchBar rounded>
@@ -47,39 +54,41 @@ class SearchPage extends Component {
                 })
               }}/>
           </Item>
-          <Button
+          <TouchableOpacity
             transparent
-            onPress={() => {
-              //console.log('searchContent:', this.state.searchContent)
-              this.props.setSearchResultList(this.state.searchContent)
-            }}>
+            onPress={async () => {
+              await this.searchResource(this.state.searchContent)
+            }}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingHorizontal: 5,
+            }}
+          >
             <Text>搜索</Text>
-          </Button>
+          </TouchableOpacity>
         </Header>
         <Content>
-          <List dataArray={this.props.searchResultList || []}
+          <List dataArray={searchResult.songs || []}
                 renderRow={
                   (item) =>
                     <ListItem
                       onPress={() => {
-                        this.props.playFindMusic({
-                          id: parseInt(item.f.split('|')[0] ),
-                          songName: item.fsong || '未知',
-                          singer: item.fsinger || '佚名',
-                          imgSrc: item.f.split('|')[4] && 'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg',
-                        })
+                        this.props.playFindMusic(item)
                       }}
                     >
-                      <Thumbnail square size={80}
-                       source={{uri:item.f.split('|')[4]&&'http://imgcache.qq.com/music/photo/album_300/'+item.f.split('|')[4]%100+'/300_albumpic_'+item.f.split('|')[4]+'_0.jpg'}} />
+                      <Thumbnail
+                        square
+                        size={80}
+                        source={{uri: item.album.picUrl}}
+                       />
                       <Body>
-                        <Text>{item.fsong}</Text>
-                        <Text note>{item.fsinger}</Text>
+                        <Text>{item.name}</Text>
+                        <Text note>{item.artists[0].name}</Text>
                       </Body>
                     </ListItem>
-                  }>>
+                  }/>
 
-          </List>
         </Content>
       </Container>
     )
@@ -87,17 +96,16 @@ class SearchPage extends Component {
 }
 
 function mapProps(store) {
-  const { player } = store || {}
-  const { searchResultList } = player
+  const { searchPage = {} } = store || {}
   return {
-    searchResultList,
+    searchPage,
   }
 }
 
 function mapAction(dispatch) {
   return {
-    setSearchResultList: async(r) => dispatch(await setSearchResultList(r)),
     playFindMusic: (r) => dispatch(playFindMusic(r)),
+    searchNetease: (k) => dispatch(searchNetease(k)),
   }
 }
 
