@@ -4,11 +4,12 @@
 import React, { Component } from 'react'
 import {
   View,
+  Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import {
   Body,
-  Text,
   Thumbnail,
   Container, Content,
   List, ListItem, Icon,
@@ -31,36 +32,48 @@ class HomeFooter extends Component {
   }
 
   render() {
-    const { currentMusicInfo, status } = this.props.player
+    const { currentMusicInfo = {
+      name: '',
+      album: {
+        picUrl: ''
+      },
+      artists: [{name: ''}],
+    }, status } = this.props.player
     const navigation = this.props.navigation
     return (
       <Container>
         <Content style={{backgroundColor: '#B72712'}}>
-          <List>
-            <ListItem style={{height: 55}}
-                      onPress={() => navigation.navigate('MusicPlayer')}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate('MusicPlayer')}>
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row', alignItems: 'center', height: 55, marginHorizontal: 5}}>
               <Thumbnail square
-                         style={{width: 48, height: 48,}}
+                         style={{width: 48, height: 48}}
                          source={{uri: currentMusicInfo.album.picUrl}}/>
-              <Body>
-              <Text>{currentMusicInfo.artists[0].name}</Text>
-              <Text
-                style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.name}</Text>
-              </Body>
-              <TouchableOpacity
-                style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
-                onPress={this.props.pausedChange}
-              >
-                <Icon name={status.paused? 'play': 'pause'}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
+              <View style={{marginLeft: 5, flex: 1}}>
+                <Text>{currentMusicInfo.artists[0].name}</Text>
+                <Text
+                  style={{fontSize: 13, color: 'white', paddingTop: 5}}>{currentMusicInfo.name}</Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  style={{width: 30, height: 30, borderRadius: 15, marginRight: 8,}}
+                  onPress={this.props.pausedChange}
+                >
+                  <Icon name={status.paused? 'play': 'pause'}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{marginRight: 10}}
+                  onPress={() => {
                   this.setState({
                     visible: !this.state.visible,
                   })
                 }}>
-                <Icon name='menu'/>
-              </TouchableOpacity>
+                  <Icon name='menu'/>
+                </TouchableOpacity>
+              </View>
               <MusicList
                 visible={this.state.visible}
                 onCancel={() => {
@@ -68,8 +81,8 @@ class HomeFooter extends Component {
                       visible: false,
                     })
               }}/>
-            </ListItem>
-          </List>
+            </View>
+          </TouchableWithoutFeedback>
         </Content>
       </Container>
     )
