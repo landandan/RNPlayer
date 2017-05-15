@@ -1,7 +1,9 @@
 /**
  * @flow
  */
+import _ from 'lodash'
 import searchMusic from "../utils/API/QQMusic/search"
+import { getMusicLrc } from "../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode";
 
 export function setPlayMusicList(playMusicList: Array<Object>) {
   return {
@@ -11,10 +13,10 @@ export function setPlayMusicList(playMusicList: Array<Object>) {
 }
 
 export function setCurrentMusicInfo(musicInfo: Object) {
-  return {
+  return [{
     type: 'setCurrentMusicInfo',
     musicInfo,
-  }
+  }, setCurrentMusicLrc(musicInfo.id)]
 }
 
 export async function setSearchResultList(keywords: string) {
@@ -33,15 +35,10 @@ export function setPlayerStatus(status: Object) {
   }
 }
 
-export function playFindMusic(musicInfo: {
-  songName: string,
-  singer: string,
-  id: number,
-  imgSrc: string,
-}) {
+export function playFindMusic(musicInfo: Object) {
   const newCurrentMusicInfo = {
     ...musicInfo,
-    fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.id}.m4a?fromtag=46`,
+    //fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.id}.m4a?fromtag=46`,
   }
   return [
     setCurrentMusicInfo(newCurrentMusicInfo),
@@ -52,19 +49,26 @@ export function playFindMusic(musicInfo: {
 }
 
 export function addSongToMusicList(musicInfo: Object) {
-  return (dispatch: () => void, getState: () => void) => {
-    const store = getState()
+  return (store) => {
     const { player = {} } = store || {}
     const { musicList = [] } = player
-    let newMusicList = musicList.concat([musicInfo])
-    return dispatch(setPlayMusicList(newMusicList))
+    let flag = true
+    _.forEach(musicList, (v) => {
+      if ( v.id == musicInfo.id ) {
+        flag = false
+      }
+    })
+    let newMusicList = musicList.concat([])
+    if ( flag ) {
+      newMusicList = musicList.concat([musicInfo])
+    }
+    return setPlayMusicList(newMusicList)
   }
 }
 
 export function playMusicList(id: number) {
-  return (dispatch: () => void, getState: () => void) => {
+  return async (store) => {
     let newCurrentMusicInfo = {}
-    const store = getState()
     const { player = {} } = store || {}
     const { musicList = [] } = player
     musicList.forEach((item, index) => {
@@ -73,17 +77,16 @@ export function playMusicList(id: number) {
       }
     })
     return [
-      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
-      dispatch(setPlayerStatus({
+      setCurrentMusicInfo(newCurrentMusicInfo),
+      setPlayerStatus({
         paused: false,
-      }))]
+      })]
   }
 }
 
 export function playMusicListNext() {
-  return (dispatch: () => void, getState: () => void) => {
+  return async (store) => {
     let newCurrentMusicInfo = {}
-    const store = getState()
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
     for (let i = 0; i < musicList.length; i++) {
@@ -92,17 +95,16 @@ export function playMusicListNext() {
       }
     }
     return [
-      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
-      dispatch(setPlayerStatus({
+      setCurrentMusicInfo(newCurrentMusicInfo),
+      setPlayerStatus({
         paused: false,
-      }))]
+      })]
   }
 }
 
 export function playMusicListPre() {
-  return (dispatch: () => void, getState: () => void) => {
+  return async (store) => {
     let newCurrentMusicInfo = {}
-    const store = getState()
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
     for (let i = 0; i < musicList.length; i++) {
@@ -110,33 +112,32 @@ export function playMusicListPre() {
         newCurrentMusicInfo = musicList[i - 1] || musicList[musicList.length - 1]
       }
     }
+
     return [
-      dispatch(setCurrentMusicInfo(newCurrentMusicInfo)),
-      dispatch(setPlayerStatus({
+      setCurrentMusicInfo(newCurrentMusicInfo),
+      setPlayerStatus({
         paused: false,
-      }))]
+      })]
   }
 }
 
 export function pausedChange() {
-  return (dispatch: () => void, getState: () => void) => {
-    const store = getState()
+  return (store) => {
     const { player = {} } = store || {}
     const { status } = player
-    return dispatch(setPlayerStatus({
+    return setPlayerStatus({
       paused: !status.paused,
-    }))
+    })
   }
 }
 
 export function mutedChange() {
-  return (dispatch: () => void, getState: () => void) => {
-    const store = getState()
+  return (store) => {
     const { player = {} } = store || {}
     const { status } = player
-    return dispatch(setPlayerStatus({
+    return setPlayerStatus({
       muted: !status.muted,
-    }))
+    })
   }
 }
 
@@ -158,3 +159,10 @@ export function setMusicCurrentTime(value: number) {
   })
 }
 
+export async function setCurrentMusicLrc(id: string) {
+  const musicLrc = await getMusicLrc(id)
+  return {
+    type: 'setCurrentMusicLrc',
+    musicLrc,
+  }
+}
