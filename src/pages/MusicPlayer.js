@@ -14,10 +14,10 @@ import {
   Right, Body, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
-import Disc from '../component/player/Disc'
 import VolumeModule from '../component/player/VolumeModule'
 import PlayerControl from '../component/player/PlayerControl'
 import ProgressBar from '../component/player/ProgressBar'
+import Lyric from '../component/player/Lyric'
 
 class MusicPlayer extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class MusicPlayer extends Component {
               </Button>
             </Left>
             <Body>
-            <Title>{currentMusicInfo.songName || '未知'} - {currentMusicInfo.singer || '佚名'}</Title>
+            <Title>{currentMusicInfo.name || '未知'} - {currentMusicInfo.artists[0].name || '佚名'}</Title>
             </Body>
             <Right>
               <Button
@@ -62,7 +62,7 @@ class MusicPlayer extends Component {
           </Header>
           <View style={{flex: 1}}>
             <VolumeModule/>
-            <Disc/>
+            <Lyric />
             <ProgressBar
               currentValue={0}
             />
