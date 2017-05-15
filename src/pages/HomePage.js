@@ -14,7 +14,7 @@ import {
   Container, Header,
   Footer, Button, Left,
   Right, Icon, Drawer,
-  Tabs, Tab, Fab,
+  Tabs, Tab, Fab, Body,
 } from 'native-base'
 
 import Sidebar from '../component/Sidebar'
@@ -26,6 +26,7 @@ import AudioPlayer from '../component/AudioPlayer'
 import {
   addNavigationHelpers,
 } from 'react-navigation'
+import getPlayListDetail from '../utils/API/NeteaseCloudMusicApi/playListDetail'
 
 class HomePage extends Component {
 
@@ -42,8 +43,6 @@ class HomePage extends Component {
     this.props.setCurrentMusicInfo(musicData[0])
     this.props.setNETSHomeData()
     this.props.setJokeList()
-    //const result = await getSongListByType()
-    //console.log('result:', result)
   }
 
   closeDrawer() {
@@ -66,18 +65,18 @@ class HomePage extends Component {
         onClose={() => this.closeDrawer()}
       >
         <Container>
-          <Header hasTabs style={{backgroundColor: '#B72712'}}>
-            <Left>
-              <Button
-                transparent
-                onPress={() =>{
+          <Header hasTabs
+                  style={{backgroundColor: '#B72712', alignItems: 'center', justifyContent: 'center'}}>
+            <Button
+              transparent
+              onPress={() =>{
                       this.openDrawer()
                     } }
-              >
-                <Icon name='menu' style={{color: 'white'}}/>
-              </Button>
-            </Left>
-            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center'}}>
+            >
+              <Icon name='menu' style={{color: 'white'}}/>
+            </Button>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center', flex: 1}}>
               {routes.map(route => (
                 <TouchableOpacity
                   onPress={() => navigation.navigate(route.routeName)}
@@ -98,11 +97,9 @@ class HomePage extends Component {
                 </TouchableOpacity>
               ))}
             </View>
-            <Right>
-              <Button transparent onPress={() => navigation.navigate('Search')}>
-                <Icon name='search' style={{color: 'white'}}/>
-              </Button>
-            </Right>
+            <Button transparent onPress={() => navigation.navigate('Search')}>
+              <Icon name='search' style={{color: 'white'}}/>
+            </Button>
           </Header>
           <View style={{flex: 1}}>
             <ActiveScreen
