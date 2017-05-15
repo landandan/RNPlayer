@@ -19,8 +19,12 @@ function promise({ dispatch }) {
     if ( action && typeof action.then === 'function' ) {
       dispatch(startLoading())
       const finishLoadingAndDispatch = (input) => {
-        dispatch(finishLoading())
-        dispatch(input)
+        try {
+          dispatch(finishLoading())
+          dispatch(input)
+        } catch (e) {
+          console.log('error:', e)
+        }
       }
       return action.then(finishLoadingAndDispatch).catch(finishLoadingAndDispatch)
     }
