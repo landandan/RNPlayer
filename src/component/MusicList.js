@@ -75,8 +75,8 @@ class MusicList extends Component {
                           item.id === currentMusicInfo.id &&
                            <Icon name="musical-note" style={{paddingRight: 5,fontSize: 20,color: "#ff0000"}}/>
                         }
-                        <Text style={{fontSize: 13}}>{item.songName}</Text>
-                        <Text note style={{fontSize: 11}}> - {item.singer}</Text>
+                        <Text style={{fontSize: 13}}>{item.name}</Text>
+                        <Text note style={{fontSize: 11}}> - {item.artists[0].name}</Text>
                         <Right>
                           <Icon name="trash"/>
                         </Right>
