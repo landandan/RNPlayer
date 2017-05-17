@@ -10,13 +10,21 @@ export function setJokeInfo(jokeInfo: Object) {
   }
 }
 
-export async function setJokeList() {
-  return async(store) => {
-    const { jokeInfo = {} } = store.joke
-    const jokeList = await getJokeFormTouTiao({ minBeHotTime: jokeInfo.minBeHotTime || '' })
-    return [{
-      type: 'setJokeList',
-      jokeList,
-    }, setJokeInfo({ minBeHotTime: new Date().getTime().toString().substring(0, 10) })]
+export function setJokeList(callback?: () => void) {
+  return async () => {
+    try {
+      const jokeList = await getJokeFormTouTiao()
+      if(callback){
+        callback(jokeList)
+      }
+      return {
+        type: 'setJokeList',
+        jokeList,
+      }
+    } catch (e){
+      if(callback){
+        callback()
+      }
+    }
   }
 }

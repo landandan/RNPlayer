@@ -9,6 +9,7 @@ function jokeList(state = {}, action = {}) {
     return {
       ...state,
       ...action.jokeList,
+      //data: [...action.jokeList.data, ...state.data],
     }
   }
   return state
