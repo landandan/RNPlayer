@@ -4,13 +4,15 @@
 import React, { Component } from 'react'
 import {
   View,
+  Text,
 } from 'react-native'
 import {
   Container, Content, List,
-  ListItem, Text,
+  ListItem,
   Left, Right, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
+
 
 class Joke extends Component {
   render() {
@@ -21,24 +23,28 @@ class Joke extends Component {
             dataArray={this.props.data || []}
             renderRow={
               (item) =>
-                <ListItem style={{flexDirection: 'column'}}>
+                <ListItem style={{flexDirection: 'column', paddingBottom: 0}}>
                 <View style={{flex: 1}}>
-                <Text>{JSON.parse(item.content).content}</Text>
+                  <Text>{JSON.parse(item.content).content}</Text>
+                </View>
+                <View style={{flexDirection: 'row', marginTop: 10}}>
+                  <Left>
+                  <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                    <Icon name="thumbs-up"/>
+                     <Text style={{marginLeft: -5}}>{JSON.parse(item.content).digg_count}</Text>
+                     <Icon name="thumbs-down" style={{marginLeft: 10}}/>
+                     <Text style={{marginLeft: -5}}>{JSON.parse(item.content).repin_count}</Text>
+                  </View>
+                  </Left>
+                  <Right>
+                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <Icon name="chatboxes"/>
+                    <Text>{JSON.parse(item.content).comment_count}</Text>
 </View>
 
-                  <View style={{flexDirection: 'row'}}>
-                    <Left>
-                       <Icon name="thumbs-up"/>
-                       <Text note>{JSON.parse(item.content).digg_count}</Text>
-                       <Icon name="thumbs-down"/>
-                       <Text note>{JSON.parse(item.content).repin_count}</Text>
-</Left>
-<Right>
-  <Icon name="chatboxes"/>
-                       <Text note>{JSON.parse(item.content).comment_count}</Text>
-</Right>
-                  </View>
-                </ListItem>
+                  </Right>
+                </View>
+              </ListItem>
             }
           />
         </Content>
@@ -59,4 +65,4 @@ function mapAction(dispatch) {
   return {}
 }
 
-export default connect(mapProps, mapAction())(Joke)
+export default connect(mapProps, mapAction)(Joke)
