@@ -21,12 +21,10 @@ import Sidebar from '../component/Sidebar'
 import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
 import { setNETSHomeData } from "../actions/homeAction"
 import InitMusicList from "../utils/InitMusicList"
-import { setJokeList } from "../actions/jokeAction"
 import AudioPlayer from '../component/AudioPlayer'
 import {
   addNavigationHelpers,
 } from 'react-navigation'
-import getPlayListDetail from '../utils/API/NeteaseCloudMusicApi/playListDetail'
 
 class HomePage extends Component {
 
@@ -42,7 +40,6 @@ class HomePage extends Component {
     this.props.setPlayMusicList(musicData)
     this.props.setCurrentMusicInfo(musicData[0])
     this.props.setNETSHomeData()
-    this.props.setJokeList()
   }
 
   closeDrawer() {
@@ -133,7 +130,6 @@ function mapAction(dispatch) {
     setPlayMusicList: (r) => dispatch(setPlayMusicList(r)),
     setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
     setNETSHomeData: async() => dispatch(await setNETSHomeData()),
-    setJokeList: async() => dispatch(await setJokeList()),
   }
 }
 
