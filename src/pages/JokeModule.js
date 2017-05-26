@@ -44,8 +44,9 @@ class JokeModule extends Component {
     endRefresh: () => void,
   }
 
-  componentDidMount() {
-    this.pullToRefreshListView.beginRefresh()
+  componentWillMount() {
+    this.props.setJokeList()
+    //this.pullToRefreshListView.beginRefresh()
   }
   render() {
     return (
