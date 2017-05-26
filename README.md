@@ -16,7 +16,10 @@
 
 # 遇到的问题
 `Duplicate module name: ---`  
-解决方案：[https://github.com/aksonov/react-native-router-flux/issues/1809](https://github.com/aksonov/react-native-router-flux/issues/1809)
+尝试解决方案：[https://github.com/aksonov/react-native-router-flux/issues/1809](https://github.com/aksonov/react-native-router-flux/issues/1809)
+
+由于`react-native-router-flux`多次出现 以上问题，解决起来很麻烦，所以去除该模块，改用`react-navigation`
+
 
 # 参考项目
 [https://github.com/microzz/vue-music-player](https://github.com/microzz/vue-music-player)
