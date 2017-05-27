@@ -15,3 +15,7 @@ export async function getRecommendResource() {
 export async function getMusicLrc(id: string) {
   return fetchNeteaseAPI('/lyric?id=' + id) || {}
 }
+
+export async function getMusicUrlById (id: string) {
+  return fetchNeteaseAPI('/music/url?id=' + id) || {}
+}
