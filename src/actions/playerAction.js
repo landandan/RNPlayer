@@ -3,7 +3,7 @@
  */
 import _ from 'lodash'
 import searchMusic from "../utils/API/QQMusic/search"
-import { getMusicLrc } from "../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode";
+import { getMusicLrc, getMusicUrlById } from "../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode";
 
 export function setPlayMusicList(playMusicList: Array<Object>) {
   return {
@@ -35,9 +35,12 @@ export function setPlayerStatus(status: Object) {
   }
 }
 
-export function playFindMusic(musicInfo: Object) {
+export async function playFindMusic(musicInfo: Object) {
+  const musicUrlResult = await getMusicUrlById(musicInfo.id)
+  const musicUrl = _.find(musicUrlResult.data, { id: musicInfo.id })
   const newCurrentMusicInfo = {
     ...musicInfo,
+    mp3Url: musicUrl.url,
     //fileSrc: `http://ws.stream.qqmusic.qq.com/${musicInfo.id}.m4a?fromtag=46`,
   }
   return [
