@@ -8,7 +8,7 @@ export const neteaseAPIParams = {
 }
 
 export default async function (url: string, params?: Object) {
-  return await fetchAPI('https://rnplayer.herokuapp.com' + url, {
+  return await fetchAPI('https://rnplayer.leanapp.cn' + url, {
     ...params,
   })
 }
