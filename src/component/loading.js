@@ -29,7 +29,7 @@ function Loading({ isLoading }: PropType) {
   return (
     <TouchableWithoutFeedback>
       <View style={styles.container}>
-        <Spinner />
+        <Spinner color='red' />
       </View>
     </TouchableWithoutFeedback>
   )
