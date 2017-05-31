@@ -2,6 +2,7 @@
  * @flow
  */
 import { combineReducers } from 'redux'
+import { reset } from "../utils/Common"
 
 function searchHistory(state = [], action = {}) {
   if ( action.type === 'setSearchHistory' ) {
@@ -10,7 +11,7 @@ function searchHistory(state = [], action = {}) {
   return state
 }
 
-function searchResult(state = {}, action = {}) {
+const searchResult = reset('searchResult/reset')((state = {}, action = {}) => {
   if ( action.type === 'setSearchResult' ) {
     return {
       ...state,
@@ -18,7 +19,7 @@ function searchResult(state = {}, action = {}) {
     }
   }
   return state
-}
+})
 
 export default combineReducers({
   searchHistory,

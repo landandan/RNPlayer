@@ -21,3 +21,10 @@ export async function searchNetease(keywords: string) {
   //   searchResult: result.result,
   // }
 }
+
+
+export function reset() {
+  return {
+    type: 'searchResult/reset',
+  }
+}

@@ -14,7 +14,7 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import { playFindMusic } from "../actions/playerAction"
-import { searchNetease } from "../actions/searchAction"
+import { searchNetease, reset } from "../actions/searchAction"
 
 class SearchPage extends Component {
   constructor() {
@@ -30,6 +30,10 @@ class SearchPage extends Component {
 
   async searchResource(keywords: string) {
     await this.props.searchNetease(keywords)
+  }
+
+  componentWillUnmount(){
+    this.props.reset()
   }
 
   render() {
@@ -106,6 +110,7 @@ function mapAction(dispatch) {
   return {
     playFindMusic: (r) => dispatch(playFindMusic(r)),
     searchNetease: (k) => dispatch(searchNetease(k)),
+    reset: () => dispatch(reset()),
   }
 }
 
