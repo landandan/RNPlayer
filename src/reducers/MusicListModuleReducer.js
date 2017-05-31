@@ -2,6 +2,14 @@
  * @flow
  */
 import { combineReducers } from 'redux'
+
+function MusicListType(state = '',action = {}) {
+  if(action.type === 'page/setCurrentMusicListType') {
+    return action.musicListType
+  }
+  return state
+}
+
 function MusicListData(state = {},action = {}) {
   if(action.type === 'page/getMusicListData') {
     return {
@@ -12,4 +20,7 @@ function MusicListData(state = {},action = {}) {
   return state
 }
 
-export default MusicListData
+export default combineReducers({
+  MusicListType,
+  MusicListData,
+})

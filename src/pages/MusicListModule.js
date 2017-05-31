@@ -17,19 +17,41 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { songListHotTags } from '../utils/API/NeteaseCloudMusicApi/recommendSongList'
 import musicListDate from '../actions/MusicListModuleAction'
+import Stylesheet from '../utils/StyleSheet'
 
 const { width } = Dimensions.get('window')
 const songListName = Object.keys(songListHotTags)
+
+const styles = Stylesheet.create({
+  listType: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth:1,
+    borderColor:'#ccc',
+    borderRadius:10,
+    marginTop:5,
+  },
+  listTypeHighlight: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth:1,
+    borderRadius:10,
+    marginTop:5,
+    borderColor: '#B72712',
+  }
+})
 
 class MusicListModule extends Component {
   constructor(props) {
     super(props)
   }
+
   componentWillMount() {
     this.props.getMusicList(songListName[0])
   }
+
   render() {
-    return(
+    return (
       <View style={{flex:1}}>
         <View style={{
             flexDirection:'row',
@@ -40,24 +62,18 @@ class MusicListModule extends Component {
           }}
         >
           {
-            _.map(songListName,(item,i) => {
+            _.map(songListName, (item, i) => {
               return (
-                <TouchableOpacity key={i}
-                      style={{
-                        paddingHorizontal: 10,
-                        paddingVertical: 5,
-                        borderWidth:1,
-                        borderColor:'#ccc',
-                        borderRadius:10,
-                        marginTop:5,
-                      }}
-                      onPress={
-                        () => {
-                          this.props.getMusicList(item)
-                        }
-                      }
+                <TouchableOpacity
+                  key={i}
+                  style={this.props.MusicListType === item? styles.listTypeHighlight: styles.listType}
+                  onPress={
+                    () => {
+                      this.props.getMusicList(item)
+                    }
+                  }
                 >
-                  <Text style={{fontSize:16}}>{item}</Text>
+                  <Text style={[this.props.MusicListType === item?{color: '#B72712'}:{color: '#ccc'},{fontSize:16}]}>{item}</Text>
                 </TouchableOpacity>
               )
             })
@@ -72,7 +88,7 @@ class MusicListModule extends Component {
              justifyContent:'space-between'
           }}>
             {
-              this.props.musicListData.playlists && _.map(this.props.musicListData.playlists,(mV,k) => {
+              this.props.MusicListData.playlists && _.map(this.props.MusicListData.playlists, (mV, k) => {
                 return (
                   <TouchableOpacity key={k} style={{
                     marginBottom:20
@@ -82,8 +98,8 @@ class MusicListModule extends Component {
                       width:width/2-2,
                       height:width/2-2
                     }}
-                    source={{uri:mV.coverImgUrl}}
-                  >
+                      source={{uri:mV.coverImgUrl}}
+                    >
                       <View
                         style={{
                           backgroundColor:'transparent',
@@ -149,14 +165,16 @@ class MusicListModule extends Component {
 }
 function mapProps(store) {
   const { musicListData } = store
+  const { MusicListType, MusicListData } = musicListData
   return {
-    musicListData
+    MusicListType,
+    MusicListData,
   }
 }
 function mapActions(dispatch) {
   return {
-    getMusicList: compose(dispatch,musicListDate),
+    getMusicList: compose(dispatch, musicListDate),
   }
 }
 
-export default connect(mapProps,mapActions)(MusicListModule)
+export default connect(mapProps, mapActions)(MusicListModule)
