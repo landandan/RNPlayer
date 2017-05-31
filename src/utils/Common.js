@@ -30,3 +30,15 @@ export async function fetchAPI(url: string, params: Object) {
   }
   return result || {}
 }
+
+export type Reducer<S, A> = (state: S, action: A) => S
+export type ResetableReducer = Reducer<Object, {type: string}>
+
+export const reset = (
+  actionType: string, defaultValue: Object = {}
+) => (reducer: ResetableReducer):ResetableReducer => (state, action) => {
+  if (action.type === actionType) {
+    return reducer(defaultValue, action)
+  }
+  return reducer(state, action)
+}
