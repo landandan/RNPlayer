@@ -28,14 +28,14 @@ const styles = Stylesheet.create({
     paddingVertical: 5,
     borderWidth:1,
     borderColor:'#ccc',
-    borderRadius:10,
+    borderRadius:15,
     marginTop:5,
   },
   listTypeHighlight: {
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderWidth:1,
-    borderRadius:10,
+    borderRadius:15,
     marginTop:5,
     borderColor: '#B72712',
   }
