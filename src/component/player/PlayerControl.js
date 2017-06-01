@@ -67,7 +67,7 @@ class PlayerControl extends Component {
                       visible: !this.state.visible,
                     })
         }}>
-          <Icon name='menu'/>
+          <Icon name='list'/>
         </TouchableOpacity>
         <MusicList
           visible={this.state.visible}

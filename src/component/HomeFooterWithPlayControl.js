@@ -71,7 +71,7 @@ class HomeFooter extends Component {
                     visible: !this.state.visible,
                   })
                 }}>
-                  <Icon name='menu'/>
+                  <Icon name='list'/>
                 </TouchableOpacity>
               </View>
               <MusicList
