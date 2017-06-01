@@ -1,15 +1,16 @@
 /**
  * @flow
  */
-import { timeout } from "./promise";
+import { timeout } from './promise'
 
 export function transformTime(seconds) {
-  let m, s;
+  let m
+  let s
   m = Math.floor(seconds / 60)
-  m = m.toString().length == 1 ? ('0' + m) : m
-  s = Math.floor(seconds - 60 * m)
-  s = s.toString().length == 1 ? ('0' + s) : s
-  return m + ':' + s
+  m = m.toString().length === 1 ? (`0${m}`) : m
+  s = Math.floor(seconds - (60 * m))
+  s = s.toString().length === 1 ? (`0${s}`) : s
+  return `${m}:${s}`
 }
 
 export async function fetchAPI(url: string, params: Object) {
@@ -20,12 +21,12 @@ export async function fetchAPI(url: string, params: Object) {
     })
   try {
     result = await response.json()
-    //console.log('result:', result)
-    if ( !result ) {
+    // console.log('result:', result)
+    if (!result) {
       throw new Error('系统繁忙，请稍后再试。')
     }
   } catch (error) {
-    //console.error(error)
+    // console.error(error)
     throw new Error('系统繁忙，请稍后再试。')
   }
   return result || {}
@@ -35,7 +36,7 @@ export type Reducer<S, A> = (state: S, action: A) => S
 export type ResetableReducer = Reducer<Object, {type: string}>
 
 export const reset = (
-  actionType: string, defaultValue: Object = {}
+  actionType: string, defaultValue: Object = {},
 ) => (reducer: ResetableReducer):ResetableReducer => (state, action) => {
   if (action.type === actionType) {
     return reducer(defaultValue, action)
