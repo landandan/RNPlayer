@@ -45,7 +45,9 @@ class JokeModule extends Component {
   }
 
   componentWillMount() {
-    this.props.setJokeList()
+    if(this.props.jokeList.length < 1){
+      this.props.setJokeList()
+    }
     // this.pullToRefreshListView.beginRefresh()
   }
   render() {
@@ -154,8 +156,10 @@ class JokeModule extends Component {
 }
 
 
-function mapProps() {
+function mapProps(store) {
+  const { jokeList = {} } = store.joke
   return {
+    jokeList,
   }
 }
 

@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native'
 import {
   Container, Content, List,
@@ -25,33 +26,49 @@ class Joke extends Component {
             dataArray={this.props.data || []}
             renderRow={
               item =>
-                (<ListItem
-                  style={{ flexDirection: 'column', paddingBottom: 0 }}
+                (<TouchableOpacity
+                  style={{ flexDirection: 'column', paddingBottom: 0, backgroundColor: '#c9c9c9'}}
                   onPress={() => {
                     this.props.pushToJokeDetails(item.group, item.group.id)
                     navigation.navigate('JokeDetails')
                   }}
                 >
-                  <View style={{ flex: 1 }}>
-                    <Text>{item.group.text}</Text>
+                  <View style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 2,
+                    shadowColor: "#000000",
+                    shadowOpacity: 0.3,
+                    shadowRadius: 1,
+                    shadowOffset: {
+                      height: 1,
+                      width: 0.3,
+                    },
+                    flex: 1,
+                    paddingHorizontal: 15,
+                    marginBottom: 10,
+                    paddingTop: 10,
+                  }}>
+                    <View style={{ flex: 1 }}>
+                      <Text>{item.group.text}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                      <Left>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                          <Icon name="thumbs-up" style={{fontSize: 22}}/>
+                          <Text style={{ marginLeft: 3 }}>{item.group.digg_count}</Text>
+                          <Icon name="thumbs-down" style={{ marginLeft: 10, fontSize: 22 }} />
+                          <Text style={{ marginLeft: 3 }}>{item.group.repin_count}</Text>
+                        </View>
+                      </Left>
+                      <Right>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                          <Icon name="chatboxes" style={{fontSize: 22}}/>
+                          <Text style={{ marginLeft: 3 }}>{item.group.comment_count}</Text>
+                        </View>
+                      </Right>
+                    </View>
                   </View>
-                  <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                    <Left>
-                      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                        <Icon name="thumbs-up" />
-                        <Text style={{ marginLeft: -5 }}>{item.group.digg_count}</Text>
-                        <Icon name="thumbs-down" style={{ marginLeft: 10 }} />
-                        <Text style={{ marginLeft: -5 }}>{item.group.repin_count}</Text>
-                      </View>
-                    </Left>
-                    <Right>
-                      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                        <Icon name="chatboxes" />
-                        <Text>{item.group.comment_count}</Text>
-                      </View>
-                    </Right>
-                  </View>
-                </ListItem>)
+                </TouchableOpacity>)
             }
           />
         </Content>

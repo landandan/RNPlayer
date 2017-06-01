@@ -88,7 +88,7 @@ class JokeDetailsPage extends Component {
                 >
                   <View style={{ height: 40, justifyContent: 'center' }}>
                     <View>
-                      <Text style={{ color: '#ccc' }}>{comment.user_name}</Text>
+                      <Text style={{ color: '#c9c9c9' }}>{comment.user_name}</Text>
                       <Text style={{ fontSize: 10, color: '#ccc' }}>{createTime}</Text>
                     </View>
                   </View>
