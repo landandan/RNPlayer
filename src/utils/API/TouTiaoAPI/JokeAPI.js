@@ -37,3 +37,15 @@ export async function getJokeFormTouTiao () {
     method: 'GET',
   })
 }
+
+export async function getJokeComments(groupId: string) {
+  const url = [
+    'https://is.snssdk.com/article/v1/tab_comments/?',
+    'group_id=' + groupId + '&item_id=0&aggr_type=0&',
+    'count=20&offset=0&tab_index=0&fold=1&aid=13&',
+    'app_name=news_article&_rticket=' + new Date().getTime(),
+  ].join('')
+  return await fetchAPI(url, {
+    method: 'GET',
+  })
+}

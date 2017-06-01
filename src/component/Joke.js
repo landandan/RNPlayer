@@ -12,10 +12,12 @@ import {
   Left, Right, Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
+import { PushToJokeDetails } from "../actions/jokeAction";
 
 
 class Joke extends Component {
   render() {
+    const navigation = this.props.navigation
     return (
       <Container>
         <Content>
@@ -23,7 +25,13 @@ class Joke extends Component {
             dataArray={this.props.data || []}
             renderRow={
               (item) =>
-                <ListItem style={{flexDirection: 'column', paddingBottom: 0}}>
+                <ListItem
+                 style={{flexDirection: 'column', paddingBottom: 0}}
+                 onPress={() => {
+                   this.props.pushToJokeDetails(item.group, item.group.id)
+                   navigation.navigate('JokeDetails')
+                 }}
+                 >
                 <View style={{flex: 1}}>
                   <Text>{item.group.text}</Text>
                 </View>
@@ -38,10 +46,9 @@ class Joke extends Component {
                   </Left>
                   <Right>
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Icon name="chatboxes"/>
-                    <Text>{item.group.comment_count}</Text>
-</View>
-
+                      <Icon name="chatboxes"/>
+                      <Text>{item.group.comment_count}</Text>
+                    </View>
                   </Right>
                 </View>
               </ListItem>
@@ -62,7 +69,9 @@ function mapProps(store) {
 }
 
 function mapAction(dispatch) {
-  return {}
+  return {
+    pushToJokeDetails: (o, s) => dispatch(PushToJokeDetails(o, s))
+  }
 }
 
 export default connect(mapProps, mapAction)(Joke)

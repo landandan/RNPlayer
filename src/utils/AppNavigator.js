@@ -18,6 +18,7 @@ import MusicPlayer from '../pages/MusicPlayer'
 import RecommendModule from '../pages/RecommendModule'
 import MusicListModule from '../pages/MusicListModule'
 import JokeModule from '../pages/JokeModule'
+import JokeDetailsPage from "../pages/JokeDetailsPage";
 
 const CustomTabRouter = TabRouter({
   Recommend: {
@@ -45,6 +46,7 @@ export const AppNavigator = StackNavigator({
   },
   MusicPlayer: { screen: MusicPlayer },
   Search: { screen: SearchPage },
+  JokeDetails: { screen: JokeDetailsPage }
 }, {
   //initialRouteName: 'Root', // 默认显示界面
   mode: 'card',  // 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)

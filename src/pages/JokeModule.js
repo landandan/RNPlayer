@@ -62,7 +62,7 @@ class JokeModule extends Component {
           // pullDownStayDistance={50}
           enabledPullUp={false}
         >
-        <Joke />
+        <Joke navigation={this.props.navigation}/>
         </PullToRefreshListView>
       </View>
     )
