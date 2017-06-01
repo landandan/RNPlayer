@@ -22,7 +22,7 @@ function SwiperImg(props: {
     <TouchableHighlight>
       <Image
         source={{ uri: imageUrl }}
-        style={{ width, height:  width * 200 / 540}}
+        style={{ width, height: width * 200 / 540 }}
         resizeMode={'stretch'}
       />
     </TouchableHighlight>
@@ -33,10 +33,10 @@ class HomeSwiper extends Component {
   render() {
     let dataFlag = false
     const banners = this.props.banners || []
-    if(banners && banners.length > 0){
+    if (banners && banners.length > 0) {
       dataFlag = true
     }
-    return(
+    return (
       dataFlag && <Swiper
         showsButtons={false}
         autoplay
@@ -47,22 +47,24 @@ class HomeSwiper extends Component {
         }}
         removeClippedSubviews
         dot={<View
-         style={{
-           backgroundColor:'rgba(0,0,0,.2)',
-           width: 5, height: 5,
-           borderRadius: 2.5,
-           marginLeft: 2,
-           marginRight: 2,
-           marginTop: 2,
-           marginBottom: 2,}} />}
-        >
+          style={{
+            backgroundColor: 'rgba(0,0,0,.2)',
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            marginLeft: 2,
+            marginRight: 2,
+            marginTop: 2,
+            marginBottom: 2 }}
+        />}
+      >
         {
           banners.map((item, key) =>
-            <SwiperImg
+            (<SwiperImg
               data={item}
               key={key}
               {...this.props}
-            />)
+            />))
         }
       </Swiper>
     )

@@ -2,7 +2,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Text,
   View,
@@ -18,9 +18,9 @@ import {
 } from 'native-base'
 
 import Sidebar from '../component/Sidebar'
-import { setPlayMusicList, setCurrentMusicInfo } from "../actions/playerAction";
-import { setNETSHomeData } from "../actions/homeAction"
-import InitMusicList from "../utils/InitMusicList"
+import { setPlayMusicList, setCurrentMusicInfo } from '../actions/playerAction'
+import { setNETSHomeData } from '../actions/homeAction'
+import InitMusicList from '../utils/InitMusicList'
 import AudioPlayer from '../component/AudioPlayer'
 import {
   addNavigationHelpers,
@@ -57,23 +57,26 @@ class HomePage extends Component {
     const ActiveScreen = router.getComponentForState(navigation.state)
     return (
       <Drawer
-        ref={(ref) => { this._drawer = ref; }}
+        ref={(ref) => { this._drawer = ref }}
         content={<Sidebar />}
         onClose={() => this.closeDrawer()}
       >
         <Container>
-          <Header hasTabs
-                  style={{backgroundColor: '#B72712', alignItems: 'center', justifyContent: 'center'}}>
+          <Header
+            hasTabs
+            style={{ backgroundColor: '#B72712', alignItems: 'center', justifyContent: 'center' }}
+          >
             <Button
               transparent
-              onPress={() =>{
-                      this.openDrawer()
-                    } }
+              onPress={() => {
+                this.openDrawer()
+              }}
             >
-              <Icon name='menu' style={{color: 'white'}}/>
+              <Icon name="menu" style={{ color: 'white' }} />
             </Button>
             <View
-              style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center', flex: 1}}>
+              style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1 }}
+            >
               {routes.map(route => (
                 <TouchableOpacity
                   onPress={() => navigation.navigate(route.routeName)}
@@ -81,24 +84,24 @@ class HomePage extends Component {
                 >
                   {
                     route.routeName == 'Recommend' &&
-                    <Icon name="musical-notes" style={{color: 'white'}}/>
+                    <Icon name="musical-notes" style={{ color: 'white' }} />
                   }
                   {
                     route.routeName == 'MusicList' &&
-                    <Icon name="document" style={{paddingHorizontal: 20,color: 'white'}}/>
+                    <Icon name="document" style={{ paddingHorizontal: 20, color: 'white' }} />
                   }
                   {
-                    route.routeName == 'Joke' && <Icon name="barcode" style={{color: 'white'}}/>
+                    route.routeName == 'Joke' && <Icon name="barcode" style={{ color: 'white' }} />
                   }
 
                 </TouchableOpacity>
               ))}
             </View>
             <Button transparent onPress={() => navigation.navigate('Search')}>
-              <Icon name='search' style={{color: 'white'}}/>
+              <Icon name="search" style={{ color: 'white' }} />
             </Button>
           </Header>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <ActiveScreen
               navigation={addNavigationHelpers({
                 ...navigation,
@@ -109,12 +112,12 @@ class HomePage extends Component {
           <AudioPlayer />
         </Container>
       </Drawer>
-    );
+    )
   }
 }
 
 function mapProps(store) {
-  //console.log('store:', store)
+  // console.log('store:', store)
   const { NETSHomeData } = store.homePage || {}
   const { homeFooterTab = {} } = store.homePage || {}
   const { banners = [], hotspot = [] } = NETSHomeData || {}
@@ -127,9 +130,9 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
-    setPlayMusicList: (r) => dispatch(setPlayMusicList(r)),
-    setCurrentMusicInfo: (r) => dispatch(setCurrentMusicInfo(r)),
-    setNETSHomeData: async() => dispatch(await setNETSHomeData()),
+    setPlayMusicList: r => dispatch(setPlayMusicList(r)),
+    setCurrentMusicInfo: r => dispatch(setCurrentMusicInfo(r)),
+    setNETSHomeData: async () => dispatch(await setNETSHomeData()),
   }
 }
 

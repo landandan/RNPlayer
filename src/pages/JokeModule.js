@@ -13,7 +13,7 @@ import {
 import Joke from '../component/Joke'
 import { connect } from 'react-redux'
 import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview'
-import { setJokeList } from "../actions/jokeAction"
+import { setJokeList } from '../actions/jokeAction'
 import StyleSheet from '../utils/StyleSheet'
 
 const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 })
 
 class JokeModule extends Component {
-  constructor(){
+  constructor() {
     super()
     this.state = {
       refreshNone: '刷新成功',
@@ -46,11 +46,11 @@ class JokeModule extends Component {
 
   componentWillMount() {
     this.props.setJokeList()
-    //this.pullToRefreshListView.beginRefresh()
+    // this.pullToRefreshListView.beginRefresh()
   }
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <PullToRefreshListView
           ref={(component) => {
             this.pullToRefreshListView = component
@@ -62,18 +62,18 @@ class JokeModule extends Component {
           // pullDownStayDistance={50}
           enabledPullUp={false}
         >
-        <Joke navigation={this.props.navigation}/>
+          <Joke navigation={this.props.navigation} />
         </PullToRefreshListView>
       </View>
     )
   }
   renderActivityIndicator() {
     return ActivityIndicator ? (
-        <ActivityIndicator
-          style={{ marginRight: 10 }}
-          animating
-          size={'small'}
-        />
+      <ActivityIndicator
+        style={{ marginRight: 10 }}
+        animating
+        size={'small'}
+      />
       ) : Platform.OS === 'android' ?
         (
           <ProgressBarAndroid
@@ -100,46 +100,46 @@ class JokeModule extends Component {
     } = PullToRefreshListView.constants.viewState
     const percent = Math.round(pullDistancePercent * 100)
     switch (pullState) {
-      case refresh_none:
-        return (
-          <View
-            style={styles.pullDown}
-          >
-            <Text style={{color: '#cccccc'}}>{this.state.refreshNone}</Text>
-          </View>
-        )
-      case refresh_idle:
-        return (
-          <View
-            style={styles.pullDown}
-          >
-            <Text style={{color: '#cccccc'}}>下拉刷新 {percent}%</Text>
-          </View>
-        )
-      case will_refresh:
-        return (
-          <View
-            style={styles.pullDown}
-          >
-            <Text style={{color: '#cccccc'}}>释放刷新</Text>
-          </View>
-        )
-      case refreshing:
-        return (
-          <View
-            style={[styles.pullDown, { flexDirection: 'row' }]}
-          >
-            {this.renderActivityIndicator()}<Text style={{color: '#cccccc'}}>正在刷新</Text>
-          </View>
-        )
-      default:
+    case refresh_none:
+      return (
+        <View
+          style={styles.pullDown}
+        >
+          <Text style={{ color: '#cccccc' }}>{this.state.refreshNone}</Text>
+        </View>
+      )
+    case refresh_idle:
+      return (
+        <View
+          style={styles.pullDown}
+        >
+          <Text style={{ color: '#cccccc' }}>下拉刷新 {percent}%</Text>
+        </View>
+      )
+    case will_refresh:
+      return (
+        <View
+          style={styles.pullDown}
+        >
+          <Text style={{ color: '#cccccc' }}>释放刷新</Text>
+        </View>
+      )
+    case refreshing:
+      return (
+        <View
+          style={[styles.pullDown, { flexDirection: 'row' }]}
+        >
+          {this.renderActivityIndicator()}<Text style={{ color: '#cccccc' }}>正在刷新</Text>
+        </View>
+      )
+    default:
 
     }
   }
 
-  onRefresh = async() => {
+  onRefresh = async () => {
     this.props.setJokeList((item) => {
-      if(item){
+      if (item) {
         this.setState({
           refreshNone: '刷新成功',
         })
@@ -161,7 +161,7 @@ function mapProps() {
 
 function mapAction(dispatch) {
   return {
-    setJokeList: (c) => dispatch(setJokeList(c)),
+    setJokeList: c => dispatch(setJokeList(c)),
   }
 }
 

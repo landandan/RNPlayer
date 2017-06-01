@@ -4,10 +4,10 @@
 import { combineReducers } from 'redux'
 
 function NETSHomeData(state = {}, action = {}) {
-  if ( action.type === 'setNETSHomeData' ) {
+  if (action.type === 'setNETSHomeData') {
     return {
       ...state,
-      ...action.NETSHomeData
+      ...action.NETSHomeData,
     }
   }
   return state
@@ -16,10 +16,10 @@ function NETSHomeData(state = {}, action = {}) {
 function homeFooterTab(state = {
   active: '推荐',
 }, action = {}) {
-  if ( action.type === 'setHomeFooterTabActive' ) {
+  if (action.type === 'setHomeFooterTabActive') {
     return {
       ...state,
-      active: action.active
+      active: action.active,
     }
   }
   return state

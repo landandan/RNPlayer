@@ -2,8 +2,8 @@
  * @flow
  */
 import _ from 'lodash'
-import searchMusic from "../utils/API/QQMusic/search"
-import { getMusicLrc, getMusicUrlById } from "../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode";
+import searchMusic from '../utils/API/QQMusic/search'
+import { getMusicLrc, getMusicUrlById } from '../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode'
 
 export function setPlayMusicList(playMusicList: Array<Object>) {
   return {
@@ -57,12 +57,12 @@ export function addSongToMusicList(musicInfo: Object) {
     const { musicList = [] } = player
     let flag = true
     _.forEach(musicList, (v) => {
-      if ( v.id == musicInfo.id ) {
+      if (v.id == musicInfo.id) {
         flag = false
       }
     })
     let newMusicList = musicList.concat([])
-    if ( flag ) {
+    if (flag) {
       newMusicList = musicList.concat([musicInfo])
     }
     return setPlayMusicList(newMusicList)
@@ -75,7 +75,7 @@ export function playMusicList(id: number) {
     const { player = {} } = store || {}
     const { musicList = [] } = player
     musicList.forEach((item, index) => {
-      if ( item.id === id ) {
+      if (item.id === id) {
         newCurrentMusicInfo = item
       }
     })
@@ -93,7 +93,7 @@ export function playMusicListNext() {
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
     for (let i = 0; i < musicList.length; i++) {
-      if ( musicList[i].id === currentMusicInfo.id ) {
+      if (musicList[i].id === currentMusicInfo.id) {
         newCurrentMusicInfo = musicList[i + 1] || musicList[0]
       }
     }
@@ -111,7 +111,7 @@ export function playMusicListPre() {
     const { player = {} } = store || {}
     const { musicList = [], currentMusicInfo = {} } = player
     for (let i = 0; i < musicList.length; i++) {
-      if ( musicList[i].id === currentMusicInfo.id ) {
+      if (musicList[i].id === currentMusicInfo.id) {
         newCurrentMusicInfo = musicList[i - 1] || musicList[musicList.length - 1]
       }
     }

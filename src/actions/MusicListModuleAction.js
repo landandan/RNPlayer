@@ -3,12 +3,10 @@
  */
 import songList from '../utils/API/NeteaseCloudMusicApi/recommendSongList'
 
-export const setCurrentMusicListType = (musicListType: string) => {
-  return {
-    type: 'page/setCurrentMusicListType',
-    musicListType,
-  }
-}
+export const setCurrentMusicListType = (musicListType: string) => ({
+  type: 'page/setCurrentMusicListType',
+  musicListType,
+})
 
 export default function (musicListType: string) {
   return [

@@ -7,9 +7,9 @@ import { StyleSheet, Platform } from 'react-native'
 function create(styles: Object): { [name: string]: any } {
   function styleFor(name) {
     const { ios, android, ...style } = { ...styles[name] }
-    if ( ios && Platform.OS === 'ios' ) {
+    if (ios && Platform.OS === 'ios') {
       return { ...style, ...ios }
-    } else if ( android && Platform.OS === 'android' ) {
+    } else if (android && Platform.OS === 'android') {
       return { ...style, ...android }
     }
     return style

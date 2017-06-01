@@ -1,7 +1,7 @@
 /**
  * @flow
  */
-import { getJokeFormTouTiao, getJokeComments } from "../utils/API/TouTiaoAPI/JokeAPI"
+import { getJokeFormTouTiao, getJokeComments } from '../utils/API/TouTiaoAPI/JokeAPI'
 
 export function setJokeInfo(jokeInfo: Object) {
   return {
@@ -10,31 +10,27 @@ export function setJokeInfo(jokeInfo: Object) {
   }
 }
 
-export function setJokeList(callback?: () => void) {
-  return async () => {
-    try {
-      const jokeList = await getJokeFormTouTiao()
-      if(callback){
-        callback(jokeList)
-      }
-      return {
-        type: 'setJokeList',
-        jokeList,
-      }
-    } catch (e){
-      if(callback){
-        callback()
-      }
+export async function setJokeList(callback?: () => void) {
+  try {
+    const jokeList = await getJokeFormTouTiao()
+    if (callback) {
+      callback(jokeList)
+    }
+    return {
+      type: 'setJokeList',
+      jokeList,
+    }
+  } catch (e) {
+    if (callback) {
+      callback()
     }
   }
 }
 
-const setCurrentJokeDetailsGroup = (group: Object) => {
-  return {
-    type: 'setCurrentJokeDetailsGroup',
-    group,
-  }
-}
+const setCurrentJokeDetailsGroup = (group: Object) => ({
+  type: 'setCurrentJokeDetailsGroup',
+  group,
+})
 
 const setCurrentJokeDetailsComments = async (groupId: string) => {
   const comments = await getJokeComments(groupId)
@@ -44,9 +40,7 @@ const setCurrentJokeDetailsComments = async (groupId: string) => {
   }
 }
 
-export const PushToJokeDetails = (group: Object, groupId: string) => {
-  return [
-    setCurrentJokeDetailsGroup(group),
-    setCurrentJokeDetailsComments(groupId),
-  ]
-}
+export const PushToJokeDetails = (group: Object, groupId: string) => [
+  setCurrentJokeDetailsGroup(group),
+  setCurrentJokeDetailsComments(groupId),
+]

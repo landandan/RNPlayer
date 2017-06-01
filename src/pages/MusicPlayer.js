@@ -34,34 +34,36 @@ class MusicPlayer extends Component {
     const { currentMusicInfo } = this.props.player
     const navigation = this.props.navigation
     return (
-      <Modal transparent visible={this.props.playerVisible}
-             animationType="fade" onRequestClose={this.props.onCancel}>
-        <Container style={{backgroundColor: 'white'}}>
+      <Modal
+        transparent visible={this.props.playerVisible}
+        animationType="fade" onRequestClose={this.props.onCancel}
+      >
+        <Container style={{ backgroundColor: 'white' }}>
           <Header searchBar hasTabs>
             <Left>
               <Button
                 transparent
                 onPress={() => navigation.goBack(null)}
               >
-                <Icon name='arrow-round-back'/>
+                <Icon name="arrow-round-back" />
               </Button>
             </Left>
             <Body>
-            <Title>{currentMusicInfo.name || '未知'} - {currentMusicInfo.artists[0].name || '佚名'}</Title>
+              <Title>{currentMusicInfo.name || '未知'} - {currentMusicInfo.artists[0].name || '佚名'}</Title>
             </Body>
             <Right>
               <Button
                 transparent
-                onPress={() =>{
-                      alert('提示','该功能正在开发中！')
-                    } }
+                onPress={() => {
+                  alert('提示', '该功能正在开发中！')
+                }}
               >
-                <Icon name='share'/>
+                <Icon name="share" />
               </Button>
             </Right>
           </Header>
-          <View style={{flex: 1}}>
-            <VolumeModule/>
+          <View style={{ flex: 1 }}>
+            <VolumeModule />
             <Lyric />
             <ProgressBar
               currentValue={0}

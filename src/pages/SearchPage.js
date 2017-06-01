@@ -13,8 +13,8 @@ import {
   Thumbnail, Body, Right, Left,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { playFindMusic } from "../actions/playerAction"
-import { searchNetease, reset } from "../actions/searchAction"
+import { playFindMusic } from '../actions/playerAction'
+import { searchNetease, reset } from '../actions/searchAction'
 
 class SearchPage extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class SearchPage extends Component {
     await this.props.searchNetease(keywords)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.reset()
   }
 
@@ -46,17 +46,18 @@ class SearchPage extends Component {
             transparent
             onPress={() => navigation.goBack(null)}
           >
-            <Icon name='arrow-round-back' style={{ marginLeft: -10 }}/>
+            <Icon name="arrow-round-back" style={{ marginLeft: -10 }} />
           </Button>
           <Item>
-            <Icon name="search"/>
+            <Icon name="search" />
             <Input
               placeholder="搜索歌曲名或歌手名"
               onChangeText={(v) => {
                 this.setState({
                   searchContent: v,
                 })
-              }}/>
+              }}
+            />
           </Item>
           <TouchableOpacity
             transparent
@@ -73,10 +74,11 @@ class SearchPage extends Component {
           </TouchableOpacity>
         </Header>
         <Content>
-          <List dataArray={searchResult.songs || []}
-                renderRow={
-                  (item) =>
-                    <ListItem
+          <List
+            dataArray={searchResult.songs || []}
+            renderRow={
+                  item =>
+                    (<ListItem
                       onPress={() => {
                         this.props.playFindMusic(item)
                       }}
@@ -84,14 +86,15 @@ class SearchPage extends Component {
                       <Thumbnail
                         square
                         size={80}
-                        source={{uri: item.album.picUrl}}
-                       />
+                        source={{ uri: item.album.picUrl }}
+                      />
                       <Body>
                         <Text>{item.name}</Text>
                         <Text note>{item.artists[0].name}</Text>
                       </Body>
-                    </ListItem>
-                  }/>
+                    </ListItem>)
+                  }
+          />
 
         </Content>
       </Container>
@@ -108,8 +111,8 @@ function mapProps(store) {
 
 function mapAction(dispatch) {
   return {
-    playFindMusic: (r) => dispatch(playFindMusic(r)),
-    searchNetease: (k) => dispatch(searchNetease(k)),
+    playFindMusic: r => dispatch(playFindMusic(r)),
+    searchNetease: k => dispatch(searchNetease(k)),
     reset: () => dispatch(reset()),
   }
 }

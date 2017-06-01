@@ -8,10 +8,10 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
-  ScrollView
+  ScrollView,
 } from 'react-native'
 import {
-  Icon
+  Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -26,19 +26,19 @@ const styles = Stylesheet.create({
   listType: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth:1,
-    borderColor:'#ccc',
-    borderRadius:15,
-    marginTop:5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 15,
+    marginTop: 5,
   },
   listTypeHighlight: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth:1,
-    borderRadius:15,
-    marginTop:5,
+    borderWidth: 1,
+    borderRadius: 15,
+    marginTop: 5,
     borderColor: '#B72712',
-  }
+  },
 })
 
 class MusicListModule extends Component {
@@ -52,110 +52,113 @@ class MusicListModule extends Component {
 
   render() {
     return (
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <View style={{
-            flexDirection:'row',
-            flexWrap:'wrap',
-            justifyContent:'space-around',
-            alignItems:'center',
-            marginBottom:10
-          }}
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          marginBottom: 10,
+        }}
         >
           {
-            _.map(songListName, (item, i) => {
-              return (
-                <TouchableOpacity
-                  key={i}
-                  style={this.props.MusicListType === item? styles.listTypeHighlight: styles.listType}
-                  onPress={
+            _.map(songListName, (item, i) => (
+              <TouchableOpacity
+                key={i}
+                style={this.props.MusicListType === item ? styles.listTypeHighlight : styles.listType}
+                onPress={
                     () => {
                       this.props.getMusicList(item)
                     }
                   }
-                >
-                  <Text style={[this.props.MusicListType === item?{color: '#B72712'}:{color: '#ccc'},{fontSize:16}]}>{item}</Text>
-                </TouchableOpacity>
-              )
-            })
+              >
+                <Text style={[this.props.MusicListType === item ? { color: '#B72712' } : { color: '#ccc' }, { fontSize: 16 }]}>{item}</Text>
+              </TouchableOpacity>
+                ))
           }
         </View>
         <View style={{
-          flex:1,
-        }}>
+          flex: 1,
+        }}
+        >
           <ScrollView contentContainerStyle={{
-             flexDirection:'row',
-             flexWrap:'wrap',
-             justifyContent:'space-between'
-          }}>
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}
+          >
             {
-              this.props.MusicListData.playlists && _.map(this.props.MusicListData.playlists, (mV, k) => {
-                return (
-                  <TouchableOpacity key={k} style={{
-                    marginBottom:20
-                  }}>
-                    <Image
-                      style={{
-                      width:width/2-2,
-                      height:width/2-2
+              this.props.MusicListData.playlists && _.map(this.props.MusicListData.playlists, (mV, k) => (
+                <TouchableOpacity
+                  key={k} style={{
+                    marginBottom: 20,
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: width / 2 - 2,
+                      height: width / 2 - 2,
                     }}
-                      source={{uri:mV.coverImgUrl}}
-                    >
-                      <View
-                        style={{
-                          backgroundColor:'transparent',
-                          flexDirection:'row',
-                          position:'absolute',
-                          top:3,
-                          right:5
-                        }}
-                      >
-                        <Icon name="headset" style={{
-                          color:'#fff',
-                          fontSize:14
-                        }}/>
-                        <Text style={{
-                          color:'#fff',
-                          fontSize:14
-                        }}
-                        >
-                          {mV.playCount}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          backgroundColor:'transparent',
-                          flexDirection:'row',
-                          position:'absolute',
-                          left:5,
-                          bottom:5
-                        }}
-                      >
-                        <Icon name="person"
-                              style={{
-                                color:'#fff',
-                                fontSize:14
-                              }}
-                        />
-                        <Text style={{
-                            color:'#fff',
-                            fontSize:14
-                          }}
-                        >
-                          {mV.creator.nickname}
-                        </Text>
-                      </View>
-                    </Image>
-                    <Text
+                    source={{ uri: mV.coverImgUrl }}
+                  >
+                    <View
                       style={{
-                        lineHeight:18,
-                        paddingHorizontal:5,
-                        width:width/2-2,
-                        paddingTop:5
+                        backgroundColor: 'transparent',
+                        flexDirection: 'row',
+                        position: 'absolute',
+                        top: 3,
+                        right: 5,
                       }}
-                    >{mV.name}</Text>
-                  </TouchableOpacity>
-                )
-              })
+                    >
+                      <Icon
+                        name="headset" style={{
+                          color: '#fff',
+                          fontSize: 14,
+                        }}
+                      />
+                      <Text style={{
+                        color: '#fff',
+                        fontSize: 14,
+                      }}
+                      >
+                        {mV.playCount}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: 'transparent',
+                        flexDirection: 'row',
+                        position: 'absolute',
+                        left: 5,
+                        bottom: 5,
+                      }}
+                    >
+                      <Icon
+                        name="person"
+                        style={{
+                          color: '#fff',
+                          fontSize: 14,
+                        }}
+                      />
+                      <Text style={{
+                        color: '#fff',
+                        fontSize: 14,
+                      }}
+                      >
+                        {mV.creator.nickname}
+                      </Text>
+                    </View>
+                  </Image>
+                  <Text
+                    style={{
+                      lineHeight: 18,
+                      paddingHorizontal: 5,
+                      width: width / 2 - 2,
+                      paddingTop: 5,
+                    }}
+                  >{mV.name}</Text>
+                </TouchableOpacity>
+                  ))
             }
           </ScrollView>
         </View>

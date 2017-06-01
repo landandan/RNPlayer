@@ -25,15 +25,15 @@ class JokeDetailsPage extends Component {
     const jokeText = group.text || ''
     const navigation = this.props.navigation
     const data = this.props.comments.data || []
-    return(
-      <View style={{flex: 1}}>
+    return (
+      <View style={{ flex: 1 }}>
         <Header>
           <Left>
             <Button
               transparent
               onPress={() => navigation.goBack(null)}
             >
-              <Icon name='arrow-round-back'/>
+              <Icon name="arrow-round-back" />
             </Button>
           </Left>
           <Body>
@@ -42,26 +42,27 @@ class JokeDetailsPage extends Component {
           <Right>
             <Button
               transparent
-              onPress={() =>{
-                      alert('提示','该功能正在开发中！')
-                    } }
+              onPress={() => {
+                alert('提示', '该功能正在开发中！')
+              }}
             >
-              <Icon name='share'/>
+              <Icon name="share" />
             </Button>
           </Right>
         </Header>
         <View style={{
           padding: 10,
-        }}>
+        }}
+        >
           <Text>{jokeText}</Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <Button light rounded>
-            <Icon name="thumbs-up"/>
+            <Icon name="thumbs-up" />
             <Text>{group.digg_count}</Text>
           </Button>
           <Button light rounded>
-            <Icon name="thumbs-down"/>
+            <Icon name="thumbs-down" />
             <Text>{group.repin_count}</Text>
           </Button>
         </View>
@@ -69,31 +70,32 @@ class JokeDetailsPage extends Component {
           borderColor: '#ccc',
           borderBottomWidth: 1,
           marginHorizontal: 10,
-        }}>
-          <Text style={{lineHeight: 20}}>评论</Text>
+        }}
+        >
+          <Text style={{ lineHeight: 20 }}>评论</Text>
         </View>
-        <ScrollView style={{paddingHorizontal: 10}}>
+        <ScrollView style={{ paddingHorizontal: 10 }}>
           {
-            data.map((item, index) =>
-            {
+            data.map((item, index) => {
               const comment = item.comment || {}
               const createTime = moment(Number(comment.create_time || 0)).format('YYYY-MM-DD hh:mm')
-              return (<View style={{flexDirection: 'row', paddingTop: 15}} key={index}>
-                <Thumbnail size={40} source={{uri: comment.user_profile_image_url}} />
+              return (<View style={{ flexDirection: 'row', paddingTop: 15 }} key={index}>
+                <Thumbnail size={40} source={{ uri: comment.user_profile_image_url }} />
                 <View style={{
                   paddingLeft: 10,
                   flex: 1,
-                }}>
-                  <View style={{height: 40, justifyContent: 'center'}}>
+                }}
+                >
+                  <View style={{ height: 40, justifyContent: 'center' }}>
                     <View>
-                      <Text style={{color: '#ccc'}}>{comment.user_name}</Text>
-                      <Text style={{fontSize: 10, color: '#ccc'}}>{createTime}</Text>
+                      <Text style={{ color: '#ccc' }}>{comment.user_name}</Text>
+                      <Text style={{ fontSize: 10, color: '#ccc' }}>{createTime}</Text>
                     </View>
                   </View>
                   <Text>{comment.text}</Text>
                 </View>
               </View>)
-            }
+            },
               )
           }
         </ScrollView>

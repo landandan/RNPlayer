@@ -20,11 +20,11 @@ class Recommend extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <View style={{height: width * 200 / 540, width}}>
-          <HomeSwiper banners={this.props.banners}/>
+      <View style={{ flex: 1 }}>
+        <View style={{ height: width * 200 / 540, width }}>
+          <HomeSwiper banners={this.props.banners} />
         </View>
-        <SongList songList={this.props.hotspot}/>
+        <SongList songList={this.props.hotspot} />
       </View>
     )
   }

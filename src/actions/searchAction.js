@@ -6,7 +6,7 @@ import { search } from '../utils/API/NeteaseCloudMusicApi/fetchNeteaseNode'
 
 export async function searchNetease(keywords: string) {
   const result = await search(keywords)
-  //console.log('result:', result)
+  // console.log('result:', result)
 
   return [{
     type: 'setSearchHistory',

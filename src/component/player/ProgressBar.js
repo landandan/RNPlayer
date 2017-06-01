@@ -10,10 +10,10 @@ import {
   Text,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { transformTime } from "../../utils/Common";
+import { transformTime } from '../../utils/Common'
 
 class ProgressBar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -23,7 +23,7 @@ class ProgressBar extends Component {
 
   render() {
     const { currentTime, duration } = this.props.status
-    return(
+    return (
       <View
         style={{
           flexDirection: 'row',
@@ -31,15 +31,15 @@ class ProgressBar extends Component {
           paddingHorizontal: 5,
           position: 'absolute',
           bottom: 5,
-        }}>
+        }}
+      >
         <Text note>{transformTime(currentTime)}</Text>
         <Slider
-          style={{ marginLeft: 10, marginRight: 10, flex: 1}}
+          style={{ marginLeft: 10, marginRight: 10, flex: 1 }}
           value={currentTime}
-          step={ 1 }
+          step={1}
           maximumValue={duration}
-          minimumTrackTintColor='#FFDB42'
-          //onValueChange={(value) => this.props.volumeChange(value)}
+          minimumTrackTintColor="#FFDB42"
         />
         <Text note>{transformTime(duration)}</Text>
       </View>

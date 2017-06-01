@@ -11,10 +11,10 @@ import {
   Icon,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { mutedChange, volumeChange } from "../../actions/playerAction";
+import { mutedChange, volumeChange } from '../../actions/playerAction'
 
 class VolumeModule extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
   props: {
@@ -26,20 +26,20 @@ class VolumeModule extends Component {
   render() {
     const { muted, volume } = this.props.status
     return (
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <TouchableOpacity
           onPress={this.props.mutedChange}
           style={{ marginLeft: 10 }}
         >
-          {/*volume-off:静音,volume-up：有声音*/}
-          <Icon name={muted? 'volume-off': 'volume-up'}/>
+          {/* volume-off:静音,volume-up：有声音*/}
+          <Icon name={muted ? 'volume-off' : 'volume-up'} />
         </TouchableOpacity>
         <Slider
-          style={{ marginLeft: 10, marginRight: 10, flex: 1}}
+          style={{ marginLeft: 10, marginRight: 10, flex: 1 }}
           value={volume}
           step={0.1}
-          minimumTrackTintColor='#FFDB42'
-          onValueChange={(value) => this.props.volumeChange(value)}
+          minimumTrackTintColor="#FFDB42"
+          onValueChange={value => this.props.volumeChange(value)}
         />
       </View>
     )
@@ -57,7 +57,7 @@ function mapProps(store) {
 function mapAction(dispatch) {
   return {
     mutedChange: () => dispatch(mutedChange()),
-    volumeChange: (v) => dispatch(volumeChange(v)),
+    volumeChange: v => dispatch(volumeChange(v)),
   }
 }
 

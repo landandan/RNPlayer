@@ -15,7 +15,7 @@ function jokeList(state = {}, action = {}) {
   return state
 }
 
-function jokeInfo(state = {minBeHotTime: ''}, action = {}) {
+function jokeInfo(state = { minBeHotTime: '' }, action = {}) {
   if (action.type === 'setJokeInfo') {
     return {
       ...state,

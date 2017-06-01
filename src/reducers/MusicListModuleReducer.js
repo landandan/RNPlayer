@@ -3,18 +3,18 @@
  */
 import { combineReducers } from 'redux'
 
-function MusicListType(state = '',action = {}) {
-  if(action.type === 'page/setCurrentMusicListType') {
+function MusicListType(state = '', action = {}) {
+  if (action.type === 'page/setCurrentMusicListType') {
     return action.musicListType
   }
   return state
 }
 
-function MusicListData(state = {},action = {}) {
-  if(action.type === 'page/getMusicListData') {
+function MusicListData(state = {}, action = {}) {
+  if (action.type === 'page/getMusicListData') {
     return {
       ...state,
-      ...action.musicListData
+      ...action.musicListData,
     }
   }
   return state

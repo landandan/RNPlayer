@@ -9,7 +9,7 @@ import {
   FooterTab, Button, Text,
 } from 'native-base'
 import { connect } from 'react-redux'
-import { setHomeFooterTabActive } from "../actions/homeAction";
+import { setHomeFooterTabActive } from '../actions/homeAction'
 
 class HomeFooterWithTabs extends Component {
   render() {
@@ -48,7 +48,7 @@ function mapProps(store) {
 
 function mapActions(dispatch) {
   return {
-    setHomeFooterTabActive: (v) => dispatch(setHomeFooterTabActive(v)),
+    setHomeFooterTabActive: v => dispatch(setHomeFooterTabActive(v)),
   }
 }
 

@@ -1,7 +1,7 @@
 /**
  * @flow
  */
-import { fetchMacNeteaseCloudAPI } from "./fetchNeteaseAPI";
+import { fetchMacNeteaseCloudAPI } from './fetchNeteaseAPI'
 
 export default async function () {
   return await fetchMacNeteaseCloudAPI('https://music.163.com/eapi/batch', {

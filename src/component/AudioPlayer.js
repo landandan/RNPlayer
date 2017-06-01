@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux'
 import Video from 'react-native-video'
 import { Toast } from 'native-base'
-import { playMusicListNext, setCurrentMusicDuration, setMusicCurrentTime } from "../actions/playerAction";
+import { playMusicListNext, setCurrentMusicDuration, setMusicCurrentTime } from '../actions/playerAction'
 
 class AudioPlayer extends Component {
   constructor(props) {
@@ -24,17 +24,17 @@ class AudioPlayer extends Component {
   }
 
   onLoad(data) {
-    //console.log('data:', data)
+    // console.log('data:', data)
     this.props.setCurrentMusicDuration(data.duration)
   }
 
   onEnd(data) {
-    //console.log('onEnd:', data)
+    // console.log('onEnd:', data)
     this.props.playMusicListNext()
   }
   onError(data) {
-    //console.log('onError:', data)
-    if(data.error){
+    // console.log('onError:', data)
+    if (data.error) {
       Toast.show({
         text: '无法连接服务器,自动播放下一首',
         position: 'bottom',
@@ -55,7 +55,7 @@ class AudioPlayer extends Component {
   }
 
   onProgress = (data) => {
-    //console.log('onProgress:', data)
+    // console.log('onProgress:', data)
     this.props.setMusicCurrentTime(data.currentTime)
   }
 
@@ -64,19 +64,16 @@ class AudioPlayer extends Component {
     const { mp3Url = '' } = this.props.currentMusicInfo
     return (
       <Video
-        source={{uri: mp3Url}}
-        //ref='video'
+        source={{ uri: mp3Url }}
+        // ref='video'
         muted={muted}
         volume={volume}
         paused={paused}
-        onProgress={(e) => this.onProgress(e)}
-        onLoad={(e) => this.onLoad(e)}
-        onEnd={(e) => this.onEnd(e)}
-        onError={(e) => this.onError(e)}
+        onProgress={e => this.onProgress(e)}
+        onLoad={e => this.onLoad(e)}
+        onEnd={e => this.onEnd(e)}
+        onError={e => this.onError(e)}
         playInBackground
-        //onBuffer={(e) => this.onBuffer(e)}
-        //onLoadStart={(e) => this.onLoadStart(e)}
-        //onTimedMetadata={(e) => this.onTimedMetadata(e)}
       />
     )
   }
@@ -93,8 +90,8 @@ function mapProps(store) {
 function mapAction(dispatch) {
   return {
     playMusicListNext: () => dispatch(playMusicListNext()),
-    setCurrentMusicDuration: (v) => dispatch(setCurrentMusicDuration(v)),
-    setMusicCurrentTime: (v) => dispatch(setMusicCurrentTime(v)),
+    setCurrentMusicDuration: v => dispatch(setCurrentMusicDuration(v)),
+    setMusicCurrentTime: v => dispatch(setMusicCurrentTime(v)),
   }
 }
 

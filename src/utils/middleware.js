@@ -3,11 +3,11 @@
  */
 import _ from 'lodash'
 import { applyMiddleware } from 'redux'
-import { startLoading, finishLoading } from "../actions/loading"
+import { startLoading, finishLoading } from '../actions/loading'
 
 function multiDispatcher({ dispatch }) {
-  return next => actions => {
-    if ( _.isArray(actions) ) {
+  return next => (actions) => {
+    if (_.isArray(actions)) {
       return actions.map(action => dispatch(action))
     }
     return next(actions)
@@ -15,15 +15,15 @@ function multiDispatcher({ dispatch }) {
 }
 
 function promise({ dispatch }) {
-  return next => action => {
-    if ( action && typeof action.then === 'function' ) {
+  return next => (action) => {
+    if (action && typeof action.then === 'function') {
       dispatch(startLoading())
       const finishLoadingAndDispatch = (input) => {
         try {
           dispatch(finishLoading())
           dispatch(input)
         } catch (e) {
-          console.log('error:', e)
+          throw e
         }
       }
       return action.then(finishLoadingAndDispatch).catch(finishLoadingAndDispatch)
@@ -33,23 +33,23 @@ function promise({ dispatch }) {
 }
 
 function thunkState({ dispatch, getState }) {
-  return next => action => {
+  return next => (action) => {
     try {
-      if ( getState().loading.loadingQueue.length <= 0 ) {
+      if (getState().loading.loadingQueue.length <= 0) {
         dispatch(finishLoading())
       }
     } catch (e) {
       dispatch(finishLoading())
     }
-    if ( action && typeof action === 'function' ) {
+    if (action && typeof action === 'function') {
       return dispatch(action(getState()))
     }
     return next(action)
   }
 }
 
-const filterNil = () => (next) => (action) => {
-  if ( action != null ) {
+const filterNil = () => next => (action) => {
+  if (action != null) {
     next(action)
   }
 }
@@ -58,5 +58,5 @@ export default applyMiddleware(
   multiDispatcher,
   promise,
   thunkState,
-  filterNil
+  filterNil,
 )

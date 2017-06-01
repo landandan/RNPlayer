@@ -10,7 +10,7 @@ import {
   Container, Content, Footer,
 } from 'native-base'
 import HomeFooterWithPlayControl from '../component/HomeFooterWithPlayControl'
-import InitMusicList from "../utils/InitMusicList"
+import InitMusicList from '../utils/InitMusicList'
 import Recommend from '../component/home/Recommend'
 
 class RecommendModule extends Component {

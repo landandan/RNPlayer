@@ -11,7 +11,7 @@ import {
 } from 'native-base'
 import { connect } from 'react-redux'
 import MusicList from '../MusicList'
-import { playMusicListNext, playMusicListPre, pausedChange } from "../../actions/playerAction"
+import { playMusicListNext, playMusicListPre, pausedChange } from '../../actions/playerAction'
 
 class PlayerControl extends Component {
   constructor(props) {
@@ -35,47 +35,52 @@ class PlayerControl extends Component {
     const { paused } = this.props.status
     return (
       <View
-        style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        <TouchableOpacity transparent style={{paddingHorizontal: 10}}>
-          {/*repeat,shuffle,sync*/}
-          <Icon name='repeat'/>
+        style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+      >
+        <TouchableOpacity transparent style={{ paddingHorizontal: 10 }}>
+          {/* repeat,shuffle,sync*/}
+          <Icon name="repeat" />
         </TouchableOpacity>
         <TouchableOpacity
           transparent
           onPress={this.props.playMusicListPre}
-          style={{paddingHorizontal: 10}}>
-          <Icon name='skip-backward'/>
+          style={{ paddingHorizontal: 10 }}
+        >
+          <Icon name="skip-backward" />
         </TouchableOpacity>
         <TouchableOpacity
-          transparent style={{paddingHorizontal: 10}}
+          transparent style={{ paddingHorizontal: 10 }}
           onPress={this.props.pausedChange}
         >
-          {/*pause:暂停,play：播放*/}
-          <Icon name={paused? 'play': 'pause'}/>
+          {/* pause:暂停,play：播放*/}
+          <Icon name={paused ? 'play' : 'pause'} />
         </TouchableOpacity>
         <TouchableOpacity
           transparent
           onPress={this.props.playMusicListNext}
-          style={{paddingHorizontal: 10}}>
-          <Icon name='skip-forward'/>
+          style={{ paddingHorizontal: 10 }}
+        >
+          <Icon name="skip-forward" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{paddingHorizontal: 10}}
+          style={{ paddingHorizontal: 10 }}
           transparent
           onPress={() => {
             this.setState({
-                      visible: !this.state.visible,
-                    })
-        }}>
-          <Icon name='list'/>
+              visible: !this.state.visible,
+            })
+          }}
+        >
+          <Icon name="list" />
         </TouchableOpacity>
         <MusicList
           visible={this.state.visible}
           onCancel={() => {
-                  this.setState({
-                      visible: false,
-                    })
-              }}/>
+            this.setState({
+              visible: false,
+            })
+          }}
+        />
       </View>
     )
   }
