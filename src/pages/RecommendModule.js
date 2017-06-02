@@ -18,7 +18,7 @@ class RecommendModule extends Component {
     return (
       <Container>
         <Content>
-          <Recommend />
+          <Recommend navigation={this.props.navigation} />
         </Content>
         <Footer>
           <HomeFooterWithPlayControl

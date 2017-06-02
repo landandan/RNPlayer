@@ -24,7 +24,7 @@ class Recommend extends Component {
         <View style={{ height: width * 200 / 540, width }}>
           <HomeSwiper banners={this.props.banners} />
         </View>
-        <SongList songList={this.props.hotspot} />
+        <SongList songList={this.props.hotspot} navigation={this.props.navigation} />
       </View>
     )
   }
