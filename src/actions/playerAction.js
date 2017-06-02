@@ -13,10 +13,24 @@ export function setPlayMusicList(playMusicList: Array<Object>) {
 }
 
 export function setCurrentMusicInfo(musicInfo: Object) {
-  return [{
-    type: 'setCurrentMusicInfo',
-    musicInfo,
-  }, setCurrentMusicLrc(musicInfo.id)]
+  return (store) => {
+    const { player = {} } = store || {}
+    const { musicList = [] } = player
+    const newMusicList = []
+    musicList.forEach((item, index) => {
+      if (item.id === musicInfo.id) {
+        newMusicList.push({...item, active: true})
+      } else {
+        newMusicList.push({...item, active: false})
+      }
+    })
+    return [
+      setPlayMusicList(newMusicList),
+      {
+      type: 'setCurrentMusicInfo',
+      musicInfo,
+    }, setCurrentMusicLrc(musicInfo.id)]
+  }
 }
 
 export async function setSearchResultList(keywords: string) {

@@ -46,9 +46,7 @@ class MusicList extends Component {
     playMusicList: (v) => void,
   }
   render() {
-    const { currentMusicInfo = {}, musicList = [] } = this.props.player || {}
-    // TO DO
-    // 点击其他歌曲时 不能同步刷新
+    const { musicList = [] } = this.props.player || {}
     return (
       <Modal
         transparent visible={this.props.visible}
@@ -68,14 +66,14 @@ class MusicList extends Component {
                     item =>
                       (<ListItem
                         onPress={() => {
-                          if (item.id !== currentMusicInfo.id) {
+                          if (!item.active) {
                             this.props.playMusicList(item.id)
                           }
                         }}
                         style={{ flexDirection: 'row' }}
                       >
                         {
-                          item.id === currentMusicInfo.id &&
+                          item.active &&
                           <Icon name="musical-note" style={{ paddingRight: 5, fontSize: 20, color: '#ff0000' }} />
                         }
                         <Text style={{ fontSize: 13 }}>{item.name}</Text>
