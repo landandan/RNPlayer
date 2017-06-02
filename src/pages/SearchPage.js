@@ -46,7 +46,7 @@ class SearchPage extends Component {
             transparent
             onPress={() => navigation.goBack(null)}
           >
-            <Icon name="arrow-round-back" style={{ marginLeft: -10 }} />
+            <Icon name="arrow-back" style={{ marginLeft: -10 }} />
           </Button>
           <Item>
             <Icon name="search" />

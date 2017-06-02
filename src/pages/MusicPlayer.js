@@ -45,7 +45,7 @@ class MusicPlayer extends Component {
                 transparent
                 onPress={() => navigation.goBack(null)}
               >
-                <Icon name="arrow-round-back" />
+                <Icon name="arrow-back" />
               </Button>
             </Left>
             <Body>
