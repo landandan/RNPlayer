@@ -70,17 +70,19 @@ class MusicList extends Component {
                             this.props.playMusicList(item.id)
                           }
                         }}
-                        style={{ flexDirection: 'row' }}
+                        style={{ flexDirection: 'row', justifyContent: 'space-between' }}
                       >
-                        {
-                          item.active &&
-                          <Icon name="musical-note" style={{ paddingRight: 5, fontSize: 20, color: '#ff0000' }} />
-                        }
-                        <Text style={{ fontSize: 13 }}>{item.name}</Text>
-                        <Text note style={{ fontSize: 11 }}> - {item.artists[0].name}</Text>
-                        <Right>
+                        <View style={{flexDirection: 'row', flex: 1, paddingRight: 40}}>
+                          {
+                            item.active &&
+                            <Icon name="musical-note" style={{ paddingRight: 5, fontSize: 20, color: '#ff0000' }} />
+                          }
+                          <Text style={{ fontSize: 13 }}>{item.name}</Text>
+                          <Text note style={{ fontSize: 11 }}> - {item.artists[0].name}</Text>
+                        </View>
+                        <View style={{justifyContent: 'flex-end'}}>
                           <Icon name="trash" />
-                        </Right>
+                        </View>
                       </ListItem>)
                     }
                 />
