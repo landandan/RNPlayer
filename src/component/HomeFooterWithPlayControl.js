@@ -17,6 +17,7 @@ import {
 import { connect } from 'react-redux'
 import MusicList from './MusicList'
 import MusicPlayer from '../pages/MusicPlayer'
+import StyleSheet from '../utils/StyleSheet'
 import { playMusicList, pausedChange } from '../actions/playerAction'
 
 class HomeFooter extends Component {
@@ -65,22 +66,31 @@ class HomeFooter extends Component {
                   style={{ fontSize: 13, color: 'white', paddingTop: 5 }}
                 >{currentMusicInfo.name}</Text>
               </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity
-                  style={{ width: 30, height: 30, borderRadius: 15, marginRight: 8 }}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                    marginRight: 15,
+                    borderWidth: StyleSheet.hairlineWidth,
+                    overflow: 'hidden',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
                   onPress={this.props.pausedChange}
                 >
-                  <Icon name={status.paused ? 'play' : 'pause'} />
+                  <Icon name={status.paused ? 'play' : 'pause'} style={{fontSize: 26, paddingTop: 2, paddingLeft: 3}}/>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{ marginRight: 10 }}
+                  style={{ paddingRight: 10 }}
                   onPress={() => {
                     this.setState({
                       visible: !this.state.visible,
                     })
                   }}
                 >
-                  <Icon name="list" />
+                  <Icon name="list" style={{fontSize: 40, paddingTop: 4}}/>
                 </TouchableOpacity>
               </View>
               <MusicList
