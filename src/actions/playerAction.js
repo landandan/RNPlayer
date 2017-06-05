@@ -42,6 +42,26 @@ export async function setSearchResultList(keywords: string) {
   }
 }
 
+export const cyclicalPatterns = ['repeat', 'repeatOne', 'shuffle']
+
+export const changeCyclicalPattern = () => {
+  return (store) => {
+    const { player: { status: { cyclicalPattern } } } = store
+    let newCyclicalPattern
+    for(let i = 0; i < cyclicalPatterns.length; i ++){
+      if(cyclicalPatterns[i] === cyclicalPattern && i < cyclicalPatterns.length - 1){
+        newCyclicalPattern = cyclicalPatterns[i + 1]
+      }
+      if(cyclicalPatterns[i] === cyclicalPattern && i == cyclicalPatterns.length - 1){
+        newCyclicalPattern = cyclicalPatterns[0]
+      }
+    }
+    return setPlayerStatus({
+      cyclicalPattern: newCyclicalPattern,
+    })
+  }
+}
+
 export function setPlayerStatus(status: Object) {
   return {
     type: 'setPlayerStatus',
@@ -105,10 +125,20 @@ export function playMusicListNext() {
   return async (store) => {
     let newCurrentMusicInfo = {}
     const { player = {} } = store || {}
-    const { musicList = [], currentMusicInfo = {} } = player
-    for (let i = 0; i < musicList.length; i++) {
-      if (musicList[i].id === currentMusicInfo.id) {
-        newCurrentMusicInfo = musicList[i + 1] || musicList[0]
+    const { musicList = [], currentMusicInfo = {}, status = {} } = player
+    if(status.cyclicalPattern === 'repeat'){  //  循环
+      for (let i = 0; i < musicList.length; i++) {
+        if (musicList[i].id === currentMusicInfo.id) {
+          newCurrentMusicInfo = musicList[i + 1] || musicList[0]
+        }
+      }
+    }
+    if(status.cyclicalPattern === 'shuffle'){  // 随机
+      const randomNum = _.random(musicList.length)
+      if(musicList[randomNum].id !== currentMusicInfo.id ){
+        newCurrentMusicInfo = musicList[randomNum]
+      } else {
+        return [playMusicListNext()]
       }
     }
     return [

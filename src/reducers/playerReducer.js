@@ -48,6 +48,7 @@ function status(state = {
   volume: 0.8,
   currentTime: 0,
   duration: 0,
+  cyclicalPattern: 'repeat',
 }, action = {}) {
   if (action.type === 'setPlayerStatus') {
     return {

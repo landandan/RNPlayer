@@ -60,7 +60,7 @@ class AudioPlayer extends Component {
   }
 
   render() {
-    const { muted, paused, volume } = this.props.status
+    const { muted, paused, volume, cyclicalPattern } = this.props.status
     const { mp3Url = '' } = this.props.currentMusicInfo
     return (
       <Video
@@ -69,6 +69,7 @@ class AudioPlayer extends Component {
         muted={muted}
         volume={volume}
         paused={paused}
+        repeat={cyclicalPattern == 'repeat'}
         onProgress={e => this.onProgress(e)}
         onLoad={e => this.onLoad(e)}
         onEnd={e => this.onEnd(e)}

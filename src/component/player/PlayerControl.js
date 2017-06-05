@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux'
 import MusicList from '../MusicList'
 import StyleSheet from '../../utils/StyleSheet'
-import { playMusicListNext, playMusicListPre, pausedChange } from '../../actions/playerAction'
+import { playMusicListNext, playMusicListPre, pausedChange, changeCyclicalPattern } from '../../actions/playerAction'
 
 const styles = StyleSheet.create({
   circle: {
@@ -42,17 +42,30 @@ class PlayerControl extends Component {
     pausedChange: () => void,
     playMusicListPre: () => void,
     playMusicListNext: () => void,
+    changeCyclicalPattern: () => void,
   }
 
   render() {
-    const { paused } = this.props.status
+    const { paused, cyclicalPattern } = this.props.status
     return (
       <View
         style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
       >
-        <TouchableOpacity transparent style={{ paddingHorizontal: 10 }}>
-          {/* repeat,shuffle,sync*/}
-          <Icon name="repeat" />
+        <TouchableOpacity
+          transparent
+          style={{ width: 45, paddingHorizontal: 10 }}
+          onPress={this.props.changeCyclicalPattern}
+        >
+          {/* repeat,shuffle,sync,refresh*/}
+          {
+            cyclicalPattern == 'repeat' && <Icon name="repeat" />
+          }
+          {
+            cyclicalPattern == 'repeatOne' && <Icon name="refresh" />
+          }
+          {
+            cyclicalPattern == 'shuffle' && <Icon name="shuffle" />
+          }
         </TouchableOpacity>
         <TouchableOpacity
           transparent
@@ -112,6 +125,7 @@ function mapAction(dispatch) {
     pausedChange: () => dispatch(pausedChange()),
     playMusicListNext: () => dispatch(playMusicListNext()),
     playMusicListPre: () => dispatch(playMusicListPre()),
+    changeCyclicalPattern: () => dispatch(changeCyclicalPattern()),
   }
 }
 
