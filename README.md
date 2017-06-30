@@ -9,6 +9,9 @@
   npm i
   ```
   
+  # 效果展示
+  ![效果展示](/src/images/show.gif)
+  
 # 引用库
 ## UI
 [native-base](https://nativebase.io/)
