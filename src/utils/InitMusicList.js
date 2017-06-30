@@ -137,7 +137,7 @@ export default {
       mvid: 0,
       rtype: 0,
       rurl: null,
-      mp3Url: 'http://m2.music.126.net/Z_JczE1y_SLUd5-Ykf6_GQ==/1032441418489942.mp3',
+      mp3Url: 'http://m10.music.126.net/20170630110604/ceb64278c2917f42a43b06acf34e3e6b/ymusic/5caf/6336/b4ef/4b91aa574e03d2920687bbd7c696542e.mp3',
     },
     {
       name: '刚好遇见你',
@@ -275,7 +275,7 @@ export default {
         playTime: 200000,
         volumeDelta: -1.88,
       },
-      mp3Url: 'http://m2.music.126.net/qv3RI4K7ABKJ0TyAdb3taw==/3250156397064860.mp3',
+      mp3Url: 'http://m10.music.126.net/20170630110629/c4f4df3d0f6755ebb96dfab767a32d1b/ymusic/f623/5875/5fc2/c351e06b8d3b89b8cf113f407b41164b.mp3',
     },
     {
       name: '我的一个道姑朋友（Cover：Lon&タイナカ彩智）',
@@ -379,7 +379,7 @@ export default {
         playTime: 313748,
         volumeDelta: -1.37,
       },
-      mp3Url: 'http://m2.music.126.net/7WiRhPdirEJ2axW9Xm6uJQ==/1415071481819545.mp3',
+      mp3Url: 'http://m10.music.126.net/20170630110649/eee8c35cad754955bdcfadf1fd48e703/ymusic/97e2/1607/6348/9da8e4f4b35f7585e8ecae127f117ae0.mp3',
       hMusic: {
         name: null,
         id: 1245890227,
@@ -548,7 +548,7 @@ export default {
         playTime: 154230,
         volumeDelta: 4.9,
       },
-      mp3Url: 'http://m2.music.126.net/WhBIiLKYNa84TF3p5xx2FQ==/3265549607332004.mp3',
+      mp3Url: 'http://m10.music.126.net/20170630110719/8b4232e45975fb23fa9950c869be2bbb/ymusic/cda2/89aa/e245/a52627d677ac19b20ac98393377702e4.mp3',
     },
     {
       name: '成都',
@@ -688,7 +688,7 @@ export default {
         volumeDelta: -1.51,
         dfsId_str: '18665309393829604',
       },
-      mp3Url: 'http://m2.music.126.net/7o5D4dA6271VktgawcbZFA==/18665309393829604.mp3',
+      mp3Url: 'http://m10.music.126.net/20170630110747/104d681dcda5fe0854013c39e80d4165/ymusic/35e8/22de/2dcd/3d2ccb1bd197e23827a6953af6297eab.mp3',
     },
   ],
 }
