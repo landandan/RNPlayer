@@ -28,14 +28,18 @@ import {
 
 class HomePage extends Component {
 
-  componentWillMount() {
-    this.init()
+  constructor(props){
+    super(props)
     this.state = {
       visible: false,
     }
   }
 
-  async init() {
+  componentWillMount() {
+    this.init()
+  }
+
+  init() {
     const musicData = InitMusicList.musicData
     this.props.setPlayMusicList(musicData)
     this.props.setCurrentMusicInfo(musicData[0])
