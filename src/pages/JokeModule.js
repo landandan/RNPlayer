@@ -10,6 +10,7 @@ import {
   ProgressBarAndroid,
   ActivityIndicatorIOS,
 } from 'react-native'
+import _ from 'lodash'
 import Joke from '../component/Joke'
 import { connect } from 'react-redux'
 import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview'
@@ -44,8 +45,8 @@ class JokeModule extends Component {
     endRefresh: () => void,
   }
 
-  componentWillMount() {
-    if(this.props.jokeList.length < 1){
+  componentDidMount() {
+    if(_.isEmpty(this.props.jokeList) || this.props.jokeList.length < 1){
       this.props.setJokeList()
     }
     // this.pullToRefreshListView.beginRefresh()
