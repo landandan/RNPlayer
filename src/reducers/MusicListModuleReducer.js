@@ -20,7 +20,15 @@ function MusicListData(state = {}, action = {}) {
   return state
 }
 
+function recordMusicListId(state = '',action = {}) {
+  if (action.type === 'page/recordMusicId') {
+    return action.id
+  }
+  return state
+}
+
 export default combineReducers({
   MusicListType,
   MusicListData,
+  recordMusicListId,
 })

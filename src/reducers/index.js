@@ -9,6 +9,7 @@ import loading from './loadingReducer'
 import searchPage from './searchReducer'
 import route from './routeReducer'
 import musicListData from './MusicListModuleReducer'
+import getMusicDetailMsg from './MusicDetailReducer'
 
 const reducers = {
   loading,
@@ -18,5 +19,6 @@ const reducers = {
   // route,
   searchPage,
   musicListData,
+  getMusicDetailMsg
 }
 export default combineReducers(reducers)

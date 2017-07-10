@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { songListHotTags } from '../utils/API/NeteaseCloudMusicApi/recommendSongList'
-import musicListDate from '../actions/MusicListModuleAction'
+import musicListDate, { recordMusicId } from '../actions/MusicListModuleAction'
 import Stylesheet from '../utils/StyleSheet'
 
 const { width } = Dimensions.get('window')
@@ -51,6 +51,7 @@ class MusicListModule extends Component {
   }
 
   render() {
+    const navigation = this.props.navigation
     return (
       <View style={{ flex: 1 }}>
         <View style={{
@@ -92,6 +93,10 @@ class MusicListModule extends Component {
                 <TouchableOpacity
                   key={k} style={{
                     marginBottom: 20,
+                  }}
+                  onPress={() => {
+                    this.props.recordMusicId(mV.id)
+                    navigation.navigate('MusicListDetail')
                   }}
                 >
                   <Image
@@ -177,6 +182,7 @@ function mapProps(store) {
 function mapActions(dispatch) {
   return {
     getMusicList: compose(dispatch, musicListDate),
+    recordMusicId: compose(dispatch, recordMusicId)
   }
 }
 
