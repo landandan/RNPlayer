@@ -8,6 +8,11 @@ export const setCurrentMusicListType = (musicListType: string) => ({
   musicListType,
 })
 
+export const recordMusicId = (id: string) => ({
+  type: 'page/recordMusicId',
+  id,
+})
+
 export default function (musicListType: string) {
   return [
     setCurrentMusicListType(musicListType),

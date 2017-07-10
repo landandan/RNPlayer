@@ -1,7 +1,8 @@
 /**
  * @flow
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   addNavigationHelpers,
   StackNavigator,
@@ -9,15 +10,16 @@ import {
   TabRouter,
   createNavigator,
   createNavigationContainer,
-} from 'react-navigation'
+} from 'react-navigation';
 
-import HomePage from '../pages/HomePage'
-import SearchPage from '../pages/SearchPage'
+import HomePage from "../pages/HomePage"
+import SearchPage from "../pages/SearchPage"
 import MusicPlayer from '../pages/MusicPlayer'
 import RecommendModule from '../pages/RecommendModule'
 import MusicListModule from '../pages/MusicListModule'
 import JokeModule from '../pages/JokeModule'
-import JokeDetailsPage from '../pages/JokeDetailsPage'
+import JokeDetailsPage from "../pages/JokeDetailsPage";
+import MusicDetailPage from "../pages/MusicDetailPage";
 
 const CustomTabRouter = TabRouter({
   Recommend: {
@@ -35,9 +37,9 @@ const CustomTabRouter = TabRouter({
 }, {
   // Change this to start on a different tab
   initialRouteName: 'Recommend',
-})
+});
 
-const CustomTabs = createNavigationContainer(createNavigator(CustomTabRouter)(HomePage))
+const CustomTabs = createNavigationContainer(createNavigator(CustomTabRouter)(HomePage));
 
 export const AppNavigator = StackNavigator({
   Root: {
@@ -45,12 +47,13 @@ export const AppNavigator = StackNavigator({
   },
   MusicPlayer: { screen: MusicPlayer },
   Search: { screen: SearchPage },
-  JokeDetails: { screen: JokeDetailsPage },
+  MusicListDetail: { screen: MusicDetailPage },
+  JokeDetails: { screen: JokeDetailsPage }
 }, {
-  // initialRouteName: 'Root', // 默认显示界面
+  //initialRouteName: 'Root', // 默认显示界面
   mode: 'card',  // 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)
   headerMode: 'none',
-})
+});
 
 // class AppWithNavigationState extends Component {
 //   props: {
@@ -73,4 +76,4 @@ export const AppNavigator = StackNavigator({
 //   }
 // }
 
-// export default connect(mapProps)(AppWithNavigationState)
+//export default connect(mapProps)(AppWithNavigationState)
