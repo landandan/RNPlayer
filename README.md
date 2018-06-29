@@ -4,7 +4,7 @@
 
 # Start
 ```
-  git clone https://github.com/landandan/RNPlayer.git
+  git clone git@github.com:Jiangjinjin1/RNPlayer.git
   
   npm i
   ```
